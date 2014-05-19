@@ -1,5 +1,8 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  div(data-role="page")
+    div.ui-content(role="main")
+      h1= title
+      p Welcome to #{title}
+      a.ui-button(data-role="button") Click Me
