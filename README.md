@@ -1,2 +1,2 @@
 #Selfie Quest!
-[![Build Status](https://drone.io/github.com/asifrc/selfiequest/status.png)](https://drone.io/github.com/asifrc/selfiequest/latest)
+[![Build Status](https://travis-ci.org/asifrc/selfiequest.svg?branch=master)](https://travis-ci.org/asifrc/selfiequest)
