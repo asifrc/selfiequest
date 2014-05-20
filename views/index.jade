@@ -3,7 +3,12 @@ extends layout
 block content
   div(data-role="page")
     .ui-content(role="main")
-      h1= title
+      #banner
+        img(width="30%", src="/images/awayDayLogo.png")
+        | &nbsp;
+        span#spSelfie Selfie
+        | &nbsp;
+        span#spQuest Quest
       a#photoButton(href="#", data-role="button", data-inset="true", class="menu-item")
         img(src="/images/cameraIcon.png")
         span Take a Photo
