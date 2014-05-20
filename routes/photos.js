@@ -14,54 +14,25 @@ router.post('/tag', function(req, res) {
 		// console.log(photo);
 
     var client = knox.createClient({
-      key: 'AKIAIP5V3MTFTGUABADQ',
-      secret: '',
+      key: process.env.AWS_ACCESS_KEY_ID,
+      secret: process.env.AWS_SECRET_ACCESS_KEY,
       bucket: 'selfiequestdev'
     });
 
-    var object = { foo: "bar" };
-    var string = JSON.stringify(object);
-    var req2 = client.put('/test/obj.json', {
-        'Content-Length': string.length
-      , 'Content-Type': 'application/json'
-    });
-    req2.on('response', function(res){
-      if (200 == res.statusCode) {
-        console.log('saved to %s', req.url);
+		var obj = {
+			client: client,
+			objectName: photo.originalFilename, // Amazon S3 object name
+			file: photo.path
+		};
+    var upload = new MultiPartUpload(obj, function(err, body) {
+      if (err) {
+        res.send("ERROR!!!! : " + err);
       }
-      else {
-        console.log('failed %s', res.statusCode);
+      else
+      {
+        res.render('tag', {imgPath: body.Location})
       }
     });
-    req2.end(string);
-
-    // client.putFile(photo.path, Math.random().toString().substr(2) + photo.originalFilename, function(err, result) {
-    //   console.log(result);
-      res.send("cool");
-    // });
-    //
-    // var upload = new MultiPartUpload(
-    //         {
-    //             client: client,
-    //             objectName: Math.random().toString().substr(2) + photo.originalFilename, // Amazon S3 object name
-    //             file: photo.path
-    //         },
-    //         // Callback handler
-    //         function(err, body) {
-    //             if (err) {
-    //               res.send("ERROR!!!! : " + err);
-    //             }
-    //             else
-    //             {
-    //               res.send(JSON.stringify(body));
-    //             }
-    //         }
-    //     );
-    //
-		// var photoPath = '/photos/' + Math.random().toString().substr(2) + photo.originalFilename;
-		// fs.rename(photo.path, path.resolve('./public'+photoPath), function() {
-		// 	res.render('tag', { title: 'File Uploaded', imgPath: photoPath});
-		// });
 	});
 
 });
