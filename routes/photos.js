@@ -31,7 +31,7 @@ router.post('/tag', function(req, res) {
       }
       else
       {
-				mongoose.connect('mongodb://localhost/selfiequest');
+				mongoose.connect(process.env.MONGO_DB);
 				var Photo = mongoose.model('Photo', { path: String });
 				var photo = new Photo({ path: body.Location });
 				photo.save(function(err) {
@@ -45,7 +45,6 @@ router.post('/tag', function(req, res) {
       }
     });
 	});
-
 });
 
 module.exports = router;
