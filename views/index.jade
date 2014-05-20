@@ -6,3 +6,6 @@ block content
       h1= title
       p Welcome to #{title}
       a.ui-button(data-role="button") Click Me
+      form#selfieForm(enctype="multipart/form-data", method="POST", action="/tag", data-ajax="false")
+        input#photoFile(name="photoFile", type="file",accept="image/*;capture=camera",data-role="none")
+        script(src="/scripts/home.js")
