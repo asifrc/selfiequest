@@ -2,6 +2,7 @@ var router = require('express').Router();
 var multiparty = require('multiparty');
 var fs = require('fs');
 var path = require('path');
+var mongoose = require('mongoose');
 
 var knox = require('knox');
 var MultiPartUpload = require('knox-mpu');
@@ -30,7 +31,17 @@ router.post('/tag', function(req, res) {
       }
       else
       {
-        res.render('tag', {imgPath: body.Location})
+				mongoose.connect('mongodb://localhost/selfiequest');
+				var Photo = mongoose.model('Photo', { path: String });
+				var photo = new Photo({ path: body.Location });
+				photo.save(function(err) {
+					if (err) {
+						res.send("Error updating database with photo path: " + err);
+					}
+					else {
+						res.render('tag', {imgPath: photo.path})
+					}
+				});
       }
     });
 	});
