@@ -1,8 +1,41 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
-a {
-  color: #00B7FF;
-}
+	body {
+		font-family: 'Open Sans', sans-serif;
+		font-weight: 300;
+	}
+	.menu-item {
+		height: 50px;
+		line-height: 50px;
+	}
+	.menu-item span {
+		float: left;
+		margin-left: 15px;
+		font-size: 18pt;
+	}
+	.menu-item img {
+		float: left;
+		vertical-align: middle;
+	}
+	#banner {
+		margin-bottom: 25px;
+	}
+	#banner img {
+		vertical-align: middle;
+		top: -15px;
+	}
+	#banner span {
+		font-size: 24pt;
+		font-weight: 600;
+		position: relative;
+		top: 5px;
+	}
+	#spSelfie {
+		color: #26BDCF;
+	}
+	#spQuest {
+		color: #EF5BA1;
+	}
+	#photoFile {
+		height: 0px;
+		width: 0px;
+		visibility: hidden;
+	}

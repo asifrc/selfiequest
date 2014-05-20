@@ -2,10 +2,11 @@ extends layout
 
 block content
   div(data-role="page")
-    div.ui-content(role="main")
+    .ui-content(role="main")
       h1= title
-      p Welcome to #{title}
-      a.ui-button(data-role="button") Click Me
+      a#photoButton(href="#", data-role="button", data-inset="true", class="menu-item")
+        img(src="/images/cameraIcon.png")
+        span Take a Photo
       form#selfieForm(enctype="multipart/form-data", method="POST", action="/tag", data-ajax="false")
         input#photoFile(name="photoFile", type="file",accept="image/*;capture=camera",data-role="none")
         script(src="/scripts/home.js")
