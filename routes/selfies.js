@@ -10,6 +10,10 @@ router.post('/tag', function(req, res) {
 
 router.post('/save', function(req, res) {
 	selfie.tagUser(req, res);
-})
+});
+
+router.get('/gallery', function(req, res) {
+	selfie.displayGallery(req, res);
+});
 
 module.exports = router;

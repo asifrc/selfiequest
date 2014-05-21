@@ -69,7 +69,14 @@ var tagUser = function(req, res) {
   });
 }
 
+var displayGallery = function(req, res) {
+  Selfie.find(function(err, selfies) {
+    res.render('gallery', { title: "Photo Gallery", selfies: selfies});
+  })
+};
+
 module.exports = {
   uploadPhoto: uploadPhoto,
   tagUser: tagUser,
+  displayGallery: displayGallery
 };

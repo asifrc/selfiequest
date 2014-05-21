@@ -11,4 +11,13 @@ html
     script(src="http://code.jquery.com/jquery-1.10.2.min.js")
     script(src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js")
   body
-    block content
+    div(data-role="page")
+      .ui-content(role="main")
+        #banner
+          img(width="30%", src="/images/awayDayLogo.png")
+          | &nbsp;
+          span#spSelfie Selfie
+          | &nbsp;
+          span#spQuest Quest
+
+        block content

@@ -1,10 +1,8 @@
 extends layout
 
 block content
-  div(data-role="page")
-    div.ui-content(role="main")
-      h1= title
-      img(src="#{imgPath}", width="100%")
-      form(action="/save", method="POST", data-ajax="false")
-        input(type="text", name="tagged", placeholder="Tag a TWer!")
-        input(type="submit" value="Save")
+  h1= title
+  img(src="#{imgPath}", width="100%")
+  form(action="/save", method="POST", data-ajax="false")
+    input(type="text", name="tagged", placeholder="Tag a TWer!")
+    input(type="submit" value="Save")
