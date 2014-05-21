@@ -3,7 +3,9 @@ var path = require('path');
 var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var expressSession = require('express-session')
 var bodyParser = require('body-parser');
+var MongoStore = require('connect-mongo')(expressSession);
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -21,6 +23,10 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
+app.use(expressSession({
+  secret: "tellmeasecret123",
+  store: new MongoStore({ url: process.env.MONGO_DB })
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
@@ -30,6 +36,15 @@ app.use('/', selfies);
 //DEV ROUTES
 app.get("/dev/tag", function(req, res) {
   res.render('tag', { imgPath: '/images/galleryIcon.png'});
+});
+app.get("/dev/sesh", function(req, res) {
+  if (typeof req.session.bob == "undefined") {
+    req.session.bob = "BOB";
+    res.send("Not Defined");
+  }
+  else {
+    res.send(req.session.bob);
+  }
 });
 
 /// catch 404 and forward to error handler
