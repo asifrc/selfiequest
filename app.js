@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var photos = require('./routes/photos');
+var selfies = require('./routes/selfies');
 
 var app = express();
 
@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/', photos);
+app.use('/', selfies);
 
 //DEV ROUTES
 app.get("/dev/tag", function(req, res) {
