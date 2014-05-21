@@ -27,6 +27,11 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/', photos);
 
+//DEV ROUTES
+app.get("/dev/tag", function(req, res) {
+  res.render('tag', { imgPath: '/images/galleryIcon.png'});
+});
+
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
