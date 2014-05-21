@@ -9,7 +9,7 @@ mongoose.connect(process.env.MONGO_DB);
 /***************\
  * Selfie Model *
 \***************/
-var Selfie = mongoose.model('Selfie', { path: String });
+var Selfie = mongoose.model('Selfie', { path: String, tagged: String });
 
 var knoxSettings = {
   key: process.env.AWS_ACCESS_KEY_ID,
@@ -37,12 +37,13 @@ var uploadPhoto = function(req, res) {
       }
       else
       {
-        var selfie = new Selfie({ path: body.Location });
+        var selfie = new Selfie({ path: body.Location});
         selfie.save(function(err) {
           if (err) {
             res.send("Error updating database with selfie path: " + err);
           }
           else {
+            req.session.selfieId = selfie._id;
             res.render('tag', {imgPath: selfie.path})
           }
         });
@@ -52,7 +53,20 @@ var uploadPhoto = function(req, res) {
 }
 
 var tagUser = function(req, res) {
-  res.send('Tag page');
+  Selfie.findById(req.session.selfieId, function(err, selfie) {
+    if (err) {
+      res.send("Error updating database with tagged1: " + err);
+    }
+    else {
+      selfie.tagged = req.body.tagged;
+      selfie.save(function(err) {
+        if (err) {
+          res.send("Error updating database with tagged: " + err);
+        }
+        res.redirect('/');
+      });
+    }
+  });
 }
 
 module.exports = {
