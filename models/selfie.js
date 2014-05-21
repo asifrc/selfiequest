@@ -3,6 +3,9 @@ var multiparty = require('multiparty');
 var knox = require('knox');
 var MultiPartUpload = require('knox-mpu');
 
+
+mongoose.connect(process.env.MONGO_DB);
+
 /***************\
  * Selfie Model *
 \***************/
@@ -20,7 +23,6 @@ var uploadPhoto = function(req, res) {
 
   form.parse(req, function(err, fields, files) {
     var selfie = files.photoFile[0];
-    // console.log(selfie);
 
     var client = knox.createClient(knoxSettings);
 
@@ -35,7 +37,6 @@ var uploadPhoto = function(req, res) {
       }
       else
       {
-        mongoose.connect(process.env.MONGO_DB);
         var selfie = new Selfie({ path: body.Location });
         selfie.save(function(err) {
           if (err) {
@@ -50,6 +51,11 @@ var uploadPhoto = function(req, res) {
   });
 }
 
+var tagUser = function(req, res) {
+  res.send('Tag page');
+}
+
 module.exports = {
-  uploadPhoto: uploadPhoto
+  uploadPhoto: uploadPhoto,
+  tagUser: tagUser,
 };

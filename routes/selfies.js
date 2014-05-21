@@ -8,4 +8,8 @@ router.post('/tag', function(req, res) {
 	selfie.uploadPhoto(req, res);
 });
 
+router.post('/save', function(req, res) {
+	selfie.tagUser(req, res);
+})
+
 module.exports = router;

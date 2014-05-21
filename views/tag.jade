@@ -5,6 +5,6 @@ block content
     div.ui-content(role="main")
       h1= title
       img(src="#{imgPath}", width="100%")
-      form(action="/save", method="POST")
+      form(action="/save", method="POST", data-ajax="false")
         input(type="text", placeholder="Tag a TWer!")
         input(type="submit" value="Save")
