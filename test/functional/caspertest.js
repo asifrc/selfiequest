@@ -7,7 +7,7 @@ casper.test.begin("User can take a selfie and goes to the tag page", function(te
       document.getElementById('selfieForm').sumbit();
     });
     this.fill('#selfieForm', {
-      'photoFile': '/Users/archoud/Code/node/selfiequest/test/functional/galleryIcon.png'
+      'photoFile': require('fs').workingDirectory + '/test/functional/galleryIcon.png'
     }, true);
   });
 
