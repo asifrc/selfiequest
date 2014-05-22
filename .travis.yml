@@ -1,8 +1,14 @@
 language: node_js
 node_js:
 - '0.10'
+services:
+ - mongodb
 before_install:
  - npm install -g grunt-cli
+env:
+  secure: "ePjOHqAL1MUxXEZdf19SLnFJqV9U1/TvLGJAdFWaC3mC0PPBiXj3Y8qAJI3kEEJ0uwRYKb7sHZaIFxGzEBWWrJHEfRXDIOQOTm4FDBK0NH2w4rduw5iVvtTvYbCVEHNlCdgcDePe4eFqjtlFfD9oF0z5WDCPlnZYKc5htPPpJUk="
+  secure: "Vk/aRnK26aqXeOiuKp7TUkWiQ1MpQogiEIyTQba324WW25ICopzCZrjp1ZP159vsq7KJmDZaK/hejv46qIpvkSDd+0Bq2iDmeehLc5w1I2L+YaOC1xEWbW8ksVF2i6Xs3ybZKdxA7dNoAUqnZuU8bmpQPZlXb9oW2iFrKIIqhAM="
+  secure: "HXqseu2e6LZWCZupOBz21oYXTrrzvTjiySXrXcwGJ6s+aUtIjYbjTAdkYPfVsdAjHFsHXQjgx9XDLm6on7z1KavVgBxOEALAntrUXCkvq3p5emhA6iYkNIQgDA6PmFWg3dnGQYqnuY/OPpzXzkVXSjOt3QRbh7FpXPA5sJs8g34="
 script: "npm test && grunt test-functional"
 deploy:
   provider: heroku
