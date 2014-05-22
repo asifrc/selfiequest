@@ -44,13 +44,13 @@ var uploadPhoto = function(req, res) {
           }
           else {
             req.session.selfieId = selfie._id;
-            res.render('tag', {imgPath: selfie.path})
+            res.render('tag', {imgPath: selfie.path});
           }
         });
       }
     });
   });
-}
+};
 
 var tagUser = function(req, res) {
   Selfie.findById(req.session.selfieId, function(err, selfie) {
@@ -67,12 +67,12 @@ var tagUser = function(req, res) {
       });
     }
   });
-}
+};
 
 var displayGallery = function(req, res) {
   Selfie.find(function(err, selfies) {
     res.render('gallery', { title: "Photo Gallery", selfies: selfies});
-  })
+  });
 };
 
 module.exports = {
