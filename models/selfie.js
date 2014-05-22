@@ -22,14 +22,14 @@ var uploadPhoto = function(req, res) {
   var form = new multiparty.Form();
 
   form.parse(req, function(err, fields, files) {
-    var selfie = files.photoFile[0];
+    var photo = files.photoFile[0];
 
     var client = knox.createClient(knoxSettings);
 
     var obj = {
       client: client,
-      objectName: selfie.originalFilename, // Amazon S3 object name
-      file: selfie.path
+      objectName: Math.round(Math.random()*10000000000000000) + photo.originalFilename, // Amazon S3 object name
+      file: photo.path
     };
     var upload = new MultiPartUpload(obj, function(err, body) {
       if (err) {
