@@ -1,5 +1,5 @@
 
-casper.test.begin("User can take a selfie and goes to the tag page", function(test) {
+casper.test.begin("User can take a selfie and tag another user", function(test) {
   casper.start("http://localhost:3000");
 
   casper.then(function() {
@@ -13,7 +13,15 @@ casper.test.begin("User can take a selfie and goes to the tag page", function(te
 
   casper.then(function() {
     test.assertEquals(this.currentUrl, "http://localhost:3000/tag")
+
+    this.fill('#tagForm', {
+      'tagged': 'Other TestUser'
+    }, true);
   });
+
+  casper.then(function() {
+    test.assertEquals(this.currentUrl, "http://localhost:3000/")
+  })
 
   casper.run(function() {
     test.done();
