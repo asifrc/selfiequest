@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1= title
-  img(src="#{imgPath}", width="100%")
+  img#selfiePreview(src="#{imgPath}", width="100%")
   form#tagForm(action="/save", method="POST", data-ajax="false")
     input#tagged(type="text", name="tagged", placeholder="Tag a TWer!")
     input(type="submit" value="Save")

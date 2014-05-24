@@ -2,5 +2,5 @@ extends layout
 
 block content
   for selfie in selfies
-    h3= selfie.tagged
-    img(src="#{selfie.path}", width="100%")
+    h3.selfieTag= selfie.tagged
+    img.selfiePhoto(src="#{selfie.path}", width="100%")

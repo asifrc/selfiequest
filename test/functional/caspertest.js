@@ -1,6 +1,7 @@
+var BASE_URL = "http://localhost:3000";
 
-casper.test.begin("User can take a selfie and tag another user", function(test) {
-  casper.start("http://localhost:3000");
+casper.test.begin("User can take a selfie, tag another user, and then view the photo from the gallery", function(test) {
+  casper.start(BASE_URL + "");
 
   casper.then(function() {
     casper.evaluate(function() {
@@ -11,17 +12,36 @@ casper.test.begin("User can take a selfie and tag another user", function(test) 
     }, true);
   });
 
+  var imageUrl = "testimage";
+
   casper.then(function() {
-    test.assertEquals(this.currentUrl, "http://localhost:3000/tag")
+    test.assertEquals(this.currentUrl, BASE_URL + "/tag");
+
+    imageUrl = this.evaluate(function() {
+      return $('#selfiePreview').attr('src');
+    });
 
     this.fill('#tagForm', {
       'tagged': 'Other TestUser'
     }, true);
   });
 
-  casper.then(function() {
-    test.assertEquals(this.currentUrl, "http://localhost:3000/")
-  })
+  casper.thenOpen(BASE_URL + '/gallery', function() {
+    var imageExists = function(url) {
+          return $('.selfiePhoto').toArray().reduce(function(prev, curr) {
+            return prev || (curr.src == url);
+          }, false);
+      };
+    test.assertTrue(this.evaluate(imageExists, imageUrl));
+
+    var tagExists = function(tagText) {
+          return $('.selfieTag').toArray().reduce(function(prev, curr) {
+            return prev || (curr.textContent == tagText);
+          }, false);
+      };
+    test.assertTrue(this.evaluate(tagExists, 'Other TestUser'));
+
+  });
 
   casper.run(function() {
     test.done();
