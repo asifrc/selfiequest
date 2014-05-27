@@ -22,7 +22,7 @@ casper.test.begin("User can take a selfie, tag another user, and then view the p
     });
 
     this.fill('#tagForm', {
-      'tagged': 'Other TestUser'
+      'tagged': 'Other TestUser ' + Math.round(Math.random()*10000000000000000)
     }, true);
   });
 
