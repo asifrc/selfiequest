@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var multiparty = require('multiparty');
 var knox = require('knox');
 var MultiPartUpload = require('knox-mpu');
 
@@ -18,65 +17,43 @@ var knoxSettings = {
 };
 
 // Upload selfie
-var uploadPhoto = function(req, res) {
-  var form = new multiparty.Form();
+var uploadPhoto = function(photo,callback) {
+  var client = knox.createClient(knoxSettings);
 
-  form.parse(req, function(err, fields, files) {
-    var photo = files.photoFile[0];
+  var photoObject = {
+    client: client,
+    objectName: Math.round(Math.random()*10000000000000000) + photo.originalFilename, // Amazon S3 object name
+    file: photo.path
+  };
 
-    var client = knox.createClient(knoxSettings);
+  var upload = new MultiPartUpload(photoObject, function(err, body) {
+    if (err) {
+      callback(err);
+      return;
+    }
 
-    var obj = {
-      client: client,
-      objectName: Math.round(Math.random()*10000000000000000) + photo.originalFilename, // Amazon S3 object name
-      file: photo.path
-    };
-    var upload = new MultiPartUpload(obj, function(err, body) {
-      if (err) {
-        res.send("ERROR!!!! : " + err);
-      }
-      else
-      {
-        var selfie = new Selfie({ path: body.Location});
-        selfie.save(function(err) {
-          if (err) {
-            res.send("Error updating database with selfie path: " + err);
-          }
-          else {
-            req.session.selfieId = selfie._id;
-            res.render('tag', {imgPath: selfie.path});
-          }
-        });
-      }
+    var selfie = new Selfie({ path: body.Location});
+    selfie.save(function(err) {
+      callback(err, selfie);
     });
   });
 };
 
-var tagUser = function(req, res) {
-  Selfie.findById(req.session.selfieId, function(err, selfie) {
-    if (err) {
-      res.send("Error updating database with tagged1: " + err);
-    }
-    else {
-      selfie.tagged = req.body.tagged;
-      selfie.save(function(err) {
-        if (err) {
-          res.send("Error updating database with tagged: " + err);
-        }
-        res.redirect('/');
-      });
-    }
+var tagUser = function(selfieId, userName, callback) {
+  Selfie.findById(selfieId, function(err, selfie) {
+    selfie.tagged = userName;
+    selfie.save(callback);
   });
 };
 
-var displayGallery = function(req, res) {
+var findAllSelfies = function(callback) {
   Selfie.find(function(err, selfies) {
-    res.render('gallery', { title: "Photo Gallery", selfies: selfies});
+    callback(err, selfies);
   });
 };
 
 module.exports = {
   uploadPhoto: uploadPhoto,
   tagUser: tagUser,
-  displayGallery: displayGallery
+  findAllSelfies: findAllSelfies
 };
