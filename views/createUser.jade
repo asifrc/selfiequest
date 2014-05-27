@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  h1= title
+  form#createUserForm(action="/dev/createUser", method="POST", data-ajax="false")
+    input#name(type="text", name="name", placeholder="name")
+    input#email(type="email", name="email", placeholder="e-mail address")
+    input(type="submit" value="Save")
