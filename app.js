@@ -10,6 +10,7 @@ var MongoStore = require('connect-mongo')(expressSession);
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var selfies = require('./routes/selfies');
+var auth = require('./routes/auth');
 
 var app = express();
 
@@ -28,6 +29,10 @@ app.use(expressSession({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
+
+
+app.use('/auth/:token', auth.authenticate);
+app.use(auth.checkAuthentication);
 
 app.use('/', routes);
 app.use('/', users);

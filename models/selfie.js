@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var knox = require('knox');
 var MultiPartUpload = require('knox-mpu');
-var config = require('../config')
+var config = require('../config');
 
 
 mongoose.connect(process.env.MONGO_DB);

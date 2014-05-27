@@ -10,14 +10,18 @@ var generateToken = function(key) {
 };
 
 var create = function(name, email, callback) {
-  user = new User({ name: name, email: email });
+  var user = new User({ name: name, email: email });
   user.token = generateToken(email);
   user.points = 0;
 
   user.save(callback);
 };
 
+var findByToken = function(token, callback) {
+  User.findOne({token: token}, callback);
+};
 
 module.exports = {
-  create: create
+  create: create,
+  findByToken: findByToken
 };
