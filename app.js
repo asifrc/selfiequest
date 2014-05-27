@@ -32,10 +32,11 @@ app.use(logger('dev'));
 
 
 app.use('/auth/:token', auth.authenticate);
+app.use('/', users); //For Tests only, for now..
+
 app.use(auth.checkAuthentication);
 
 app.use('/', routes);
-app.use('/', users);
 app.use('/', selfies);
 
 //DEV ROUTES

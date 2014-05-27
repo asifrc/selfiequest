@@ -1,9 +1,24 @@
 var BASE_URL = "http://localhost:3000";
 
 casper.test.begin("User can take a selfie, tag another user, and then view the photo from the gallery", function(test) {
-  casper.start(BASE_URL + "");
+  var testUser = {
+    'name': "Michelle",
+    'email': "michelle@example.com"
+  };
+  var token = "fe4788dd07a506e5c4c662e636dc3f46";
 
+  casper.start(BASE_URL + "/dev/createUser");
+
+  //Create a new User
   casper.then(function() {
+    this.fill('#createUserForm', testUser, true);
+  });
+
+  casper.thenOpen(BASE_URL + "/auth/" + token, function() {
+    test.assertFalse(this.exists('#errorMessage'));
+  });
+
+  casper.thenOpen(BASE_URL + '/', function() {
     casper.evaluate(function() {
       document.getElementById('selfieForm').sumbit();
     });
