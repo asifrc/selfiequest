@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var knox = require('knox');
 var MultiPartUpload = require('knox-mpu');
+var config = require('../config')
 
 
 mongoose.connect(process.env.MONGO_DB);
@@ -10,19 +11,14 @@ mongoose.connect(process.env.MONGO_DB);
 \***************/
 var Selfie = mongoose.model('Selfie', { path: String, tagged: String });
 
-var knoxSettings = {
-  key: process.env.AWS_ACCESS_KEY_ID,
-  secret: process.env.AWS_SECRET_ACCESS_KEY,
-  bucket: 'selfiequestdev'
-};
-
 // Upload selfie
 var uploadPhoto = function(photo,callback) {
-  var client = knox.createClient(knoxSettings);
+  var client = knox.createClient(config.knox.settings);
+  var prefix = config.aws.targetFolder + "/" + Math.round(Math.random()*10000000000000000);
 
   var photoObject = {
     client: client,
-    objectName: Math.round(Math.random()*10000000000000000) + photo.originalFilename, // Amazon S3 object name
+    objectName: prefix + photo.originalFilename, // Amazon S3 object name
     file: photo.path
   };
 
