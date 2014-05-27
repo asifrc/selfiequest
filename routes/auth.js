@@ -7,7 +7,7 @@ var authenticate = function(req, res) {
       return;
     }
     req.session.userId = currentUser._id;
-    res.send("authenticate<br>USER: " + currentUser.name);
+    res.redirect('/');
   });
 };
 
