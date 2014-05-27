@@ -13,6 +13,7 @@ casper.test.begin("User can take a selfie, tag another user, and then view the p
   });
 
   var imageUrl = "testimage";
+  var taggedUser = "Other TestUser " + Math.round(Math.random()*10000000000000000);
 
   casper.then(function() {
     test.assertEquals(this.currentUrl, BASE_URL + "/tag");
@@ -22,7 +23,7 @@ casper.test.begin("User can take a selfie, tag another user, and then view the p
     });
 
     this.fill('#tagForm', {
-      'tagged': 'Other TestUser ' + Math.round(Math.random()*10000000000000000)
+      'tagged':  taggedUser
     }, true);
   });
 
@@ -39,7 +40,7 @@ casper.test.begin("User can take a selfie, tag another user, and then view the p
             return prev || (curr.textContent == tagText);
           }, false);
       };
-    test.assertTrue(this.evaluate(tagExists, 'Other TestUser'));
+    test.assertTrue(this.evaluate(tagExists, taggedUser));
 
   });
 
