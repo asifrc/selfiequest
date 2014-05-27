@@ -9,10 +9,16 @@ mongoose.connect(process.env.MONGO_DB);
 /***************\
  * Selfie Model *
 \***************/
-var Selfie = mongoose.model('Selfie', { path: String, tagged: String });
+var Selfie = mongoose.model('Selfie', {
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  path: String,
+  tagged: String });
 
 // Upload selfie
-var uploadPhoto = function(photo,callback) {
+var uploadPhoto = function(photo, ownerId, callback) {
   var client = knox.createClient(config.knox.settings);
   var prefix = config.aws.targetFolder + "/" + Math.round(Math.random()*10000000000000000);
 
@@ -28,7 +34,7 @@ var uploadPhoto = function(photo,callback) {
       return;
     }
 
-    var selfie = new Selfie({ path: body.Location});
+    var selfie = new Selfie({ path: body.Location, owner: ownerId});
     selfie.save(function(err) {
       callback(err, selfie);
     });

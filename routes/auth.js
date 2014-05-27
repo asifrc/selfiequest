@@ -2,11 +2,11 @@ var user = require('../models/user');
 
 var authenticate = function(req, res) {
   user.findByToken(req.params.token, function(err, currentUser) {
-    if (currentUser == null) {
+    if (currentUser === null) {
       res.render('auth', { message: "The token you provided is invalid. Please check your email."});
       return;
     }
-    req.session.userId = currentUser.token;
+    req.session.userId = currentUser._id;
     res.send("authenticate<br>USER: " + currentUser.name);
   });
 };

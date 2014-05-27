@@ -11,7 +11,7 @@ router.post('/tag', function(req, res) {
 	form.parse(req, function(err, fields, files) {
 		var photo = files.photoFile[0];
 
-		selfie.uploadPhoto(photo, function(err, selfie) {
+		selfie.uploadPhoto(photo, req.session.userId, function(err, selfie) {
 			if (err) {
 				res.render('error', {error: err});
 				return;
