@@ -14,5 +14,7 @@ block content
         a(href="#", data-value="Pat") Pat
       li(data-icon="false")
         a(href="#", data-value="Demo") Demo
-    input(data-role="button", type="submit", value="Save")
+  button#saveButton(data-role="button") Save
+  div#popup(data-role="popup", data-position-to="#saveButton")
+    p Please tag someone!
   script(src="/scripts/tag.js")

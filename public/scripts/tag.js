@@ -18,3 +18,12 @@ var unselectUser = function() {
 };
 
 $('#userList li a').click(selectUser);
+
+$('#saveButton').click(function() {
+  if ($('#tagged').val() !== "") {
+    $('#tagForm').submit();
+  }
+  else {
+    $('#popup').popup('open');
+  }
+});
