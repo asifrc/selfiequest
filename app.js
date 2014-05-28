@@ -52,6 +52,9 @@ app.get("/dev/sesh", function(req, res) {
     res.send(req.session.bob);
   }
 });
+app.get("/dev/tag", function(req, res) {
+  res.render('tag', {imgPath: "/images/galleryIcon.png"});
+});
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -4,5 +4,15 @@ block content
   h1= title
   img#selfiePreview(src="#{imgPath}", width="100%")
   form#tagForm(action="/save", method="POST", data-ajax="false")
-    input#tagged(type="text", name="tagged", placeholder="Tag a TWer!")
-    input(type="submit" value="Save")
+    input#tagged(type="hidden", name="tagged")
+    ul#userList(data-role="listview", data-filter="true", data-filter-reveal="true", data-filter-placeholder="Tag a TWer!", data-inset="true")
+      li(data-icon="false")
+        a(href="#", data-value="Asif") Asif
+      li(data-icon="false")
+        a(href="#", data-value="Cameron") Cameron
+      li(data-icon="false")
+        a(href="#", data-value="Pat") Pat
+      li(data-icon="false")
+        a(href="#", data-value="Demo") Demo
+    input(data-role="button", type="submit", value="Save")
+  script(src="/scripts/tag.js")
