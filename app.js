@@ -11,6 +11,7 @@ var routes = require('./routes/index');
 var admin = require('./routes/admin');
 var selfies = require('./routes/selfies');
 var auth = require('./routes/auth');
+var users = require('./routes/users');
 
 var app = express();
 
@@ -38,6 +39,7 @@ app.use(auth.checkAuthentication);
 
 app.use('/', routes);
 app.use('/', selfies);
+app.use('/users', users);
 
 //DEV ROUTES
 app.get("/dev/tag", function(req, res) {

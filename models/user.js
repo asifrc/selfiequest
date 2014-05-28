@@ -21,7 +21,18 @@ var findByToken = function(token, callback) {
   User.findOne({token: token}, callback);
 };
 
+var getAllNames = function(callback) {
+  User.find(function(err, users) {
+    var userNames = [];
+    users.map(function(user) {
+      userNames.push(user.name);
+    });
+    callback(userNames);
+  });
+};
+
 module.exports = {
   create: create,
-  findByToken: findByToken
+  findByToken: findByToken,
+  getAllNames: getAllNames
 };
