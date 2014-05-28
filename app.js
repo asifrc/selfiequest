@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var MongoStore = require('connect-mongo')(expressSession);
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var admin = require('./routes/admin');
 var selfies = require('./routes/selfies');
 var auth = require('./routes/auth');
 
@@ -32,7 +32,7 @@ app.use(logger('dev'));
 
 
 app.use('/auth/:token', auth.authenticate);
-app.use('/', users); //For Tests only, for now..
+app.use('/', admin); //For Tests only, for now..
 
 app.use(auth.checkAuthentication);
 
