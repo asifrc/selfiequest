@@ -7,7 +7,8 @@ var authenticate = function(req, res) {
       return;
     }
     req.session.userId = currentUser._id;
-    res.redirect('/');
+    res.send(currentUser.pointss);
+    // res.redirect('/');
   });
 };
 
