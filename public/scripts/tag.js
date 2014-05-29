@@ -28,7 +28,16 @@ $('#saveButton').click(function() {
   }
 });
 
-var users = ["Asif", "Cameron", "Pat", "Demo"];
+var users = [];
+var d;
+
+$.getJSON('/users', function(response) {
+  if (response.error) {
+    alert("ERRORR!");
+    return;
+  }
+  users = response.data;
+});
 
 
 var usersHtml = function() {

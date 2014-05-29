@@ -23,11 +23,15 @@ var findByToken = function(token, callback) {
 
 var getAllNames = function(callback) {
   User.find(function(err, users) {
+    if (err) {
+      callback(err);
+      return;
+    }
     var userNames = [];
     users.map(function(user) {
       userNames.push(user.name);
     });
-    callback(userNames);
+    callback(err, userNames);
   });
 };
 
