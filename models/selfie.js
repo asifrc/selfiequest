@@ -15,7 +15,9 @@ var Selfie = mongoose.model('Selfie', {
     ref: 'User'
   },
   path: String,
-  tagged: String });
+  tagged: String,
+  timestamp: { type: Date, default: Date.now }
+});
 
 // Upload selfie
 var uploadPhoto = function(photo, ownerId, callback) {
