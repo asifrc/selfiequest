@@ -43,16 +43,13 @@ casper.test.begin("User can take a selfie, tag another user, and then view the p
       'photoFile': require('fs').workingDirectory + '/test/functional/galleryIcon.png'
     }, true);
   });
-"this"
+
   casper.then(function() {
     test.assertEquals(this.currentUrl, BASE_URL + "/tag");
 
     imageUrl = this.evaluate(function() {
       return $('#selfiePreview').attr('src');
     });
-
-    console.log(taggedUserName);
-    console.log(taggedUserId);
 
     this.fill('#tagForm', {
       'tagged':  taggedUserId
@@ -63,8 +60,6 @@ casper.test.begin("User can take a selfie, tag another user, and then view the p
 
   casper.then(function() {
     test.assertEquals(this.currentUrl, BASE_URL + "/gallery");
-    this.wait(2000);
-    // console.log(this.getHTML());
     var imageExists = function(url) {
       return $('.selfiePhoto').toArray().reduce(function(prev, curr) {
         return prev || (curr.src == url);
@@ -78,9 +73,8 @@ casper.test.begin("User can take a selfie, tag another user, and then view the p
             return prev || (curr.textContent.indexOf(tagText) > -1);
           }, false);
       };
-    console.log(taggedUserName);
-    test.assertTrue(this.evaluate(tagExists, taggedUserName));
 
+    test.assertTrue(this.evaluate(tagExists, taggedUserName));
   });
 
   casper.run(function() {
