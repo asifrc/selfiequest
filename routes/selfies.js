@@ -23,7 +23,11 @@ router.post('/tag', function(req, res) {
 });
 
 router.post('/save', function(req, res) {
-	selfie.tagUser(req.session.selfieId, req.session.userName, req.body.tagged, function(err) {
+	var owner =  {
+		name: req.session.userName,
+		_id: req.session.userId
+	};
+	selfie.tagUser(req.session.selfieId, owner, req.body.tagged, function(err) {
 		if (err) {
 			res.render('err', {error: err});
 			return;

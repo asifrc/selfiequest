@@ -49,12 +49,18 @@ var uploadPhoto = function(photo, ownerId, callback) {
   });
 };
 
-var tagUser = function(selfieId, ownerName, taggedUserId, callback) {
+var tagUser = function(selfieId, owner,  taggedUserId, callback) {
   User.findById(taggedUserId, function(err, taggedUser) {
     Selfie.findById(selfieId, function(err, selfie) {
       selfie.tagged = taggedUser;
-      selfie.tagText = ownerName + " & " + taggedUser.name
+      selfie.tagText = owner.name + " & " + taggedUser.name
       selfie.save(callback);
+    });
+    taggedUser.points += 1;
+    taggedUser.save();
+    User.findById(owner._id, function(err, user) {
+      user.points += 1;
+      user.save();
     });
   });
 };
