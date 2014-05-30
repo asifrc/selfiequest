@@ -3,10 +3,10 @@ var user = require('../models/user');
 var router = express.Router();
 
 router.get("/", function(req, res) {
-  user.getAllNames(function(err, userNames) {
+  user.getAllNamesAndIds(function(err, users) {
     var response = {
       error: err,
-      data: userNames
+      data: users
     }
     res.contentType("application/json");
     res.send(JSON.stringify(response));

@@ -3,6 +3,8 @@ var knox = require('knox');
 var MultiPartUpload = require('knox-mpu');
 var config = require('../config');
 
+var User = require('./user').Model;
+
 
 mongoose.connect(process.env.MONGO_DB);
 
@@ -15,7 +17,11 @@ var Selfie = mongoose.model('Selfie', {
     ref: 'User'
   },
   path: String,
-  tagged: String,
+  tagged: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  tagText: String,
   timestamp: { type: Date, default: Date.now }
 });
 
@@ -43,17 +49,18 @@ var uploadPhoto = function(photo, ownerId, callback) {
   });
 };
 
-var tagUser = function(selfieId, userName, callback) {
-  Selfie.findById(selfieId, function(err, selfie) {
-    selfie.tagged = userName;
-    selfie.save(callback);
+var tagUser = function(selfieId, ownerName, taggedUserId, callback) {
+  User.findById(taggedUserId, function(err, taggedUser) {
+    Selfie.findById(selfieId, function(err, selfie) {
+      selfie.tagged = taggedUser;
+      selfie.tagText = ownerName + " & " + taggedUser.name
+      selfie.save(callback);
+    });
   });
 };
 
 var findAllSelfies = function(callback) {
-  Selfie.find(function(err, selfies) {
-    callback(err, selfies);
-  });
+  Selfie.find(callback);
 };
 
 module.exports = {

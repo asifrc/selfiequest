@@ -41,8 +41,8 @@ $.getJSON('/users', function(response) {
 
 
 var usersHtml = function() {
-  return users.map(function(name) {
-    return '<li data-icon="false"><a href="#" data-value="'+name+'">'+name+'</a></li>'
+  return users.map(function(user) {
+    return '<li data-icon="false"><a href="#" data-value="'+user._id+'">'+user.name+'</a></li>'
   });
 };
 

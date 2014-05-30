@@ -21,7 +21,7 @@ var findByToken = function(token, callback) {
   User.findOne({token: token}, callback);
 };
 
-var getAllNames = function(callback) {
+var getAllNamesAndIds = function(callback) {
   User.find(function(err, users) {
     if (err) {
       callback(err);
@@ -29,7 +29,11 @@ var getAllNames = function(callback) {
     }
     var userNames = [];
     users.map(function(user) {
-      userNames.push(user.name);
+      var userObj = {
+        name: user.name,
+        _id: user._id
+      }
+      userNames.push(userObj);
     });
     callback(err, userNames);
   });
@@ -38,5 +42,6 @@ var getAllNames = function(callback) {
 module.exports = {
   create: create,
   findByToken: findByToken,
-  getAllNames: getAllNames
+  getAllNamesAndIds: getAllNamesAndIds,
+  Model: User
 };

@@ -52,7 +52,7 @@ casper.test.begin("User can take a selfie, tag another user, and then view the p
 
     var tagExists = function(tagText) {
           return $('.selfieTag').toArray().reduce(function(prev, curr) {
-            return prev || (curr.textContent == tagText);
+            return prev || (curr.textContent.indexOf(tagText) > -1);
           }, false);
       };
     test.assertTrue(this.evaluate(tagExists, taggedUser));
