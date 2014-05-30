@@ -4,6 +4,7 @@ var path = require('path');
 var multiparty = require('multiparty');
 
 var selfie = require('../models/selfie');
+var user = require('../models/user');
 
 router.post('/tag', function(req, res) {
 	var form = new multiparty.Form();
@@ -23,7 +24,7 @@ router.post('/tag', function(req, res) {
 });
 
 router.post('/save', function(req, res) {
-	selfie.tagUser(req.session.selfieId, req.body.tagged, function(err) {
+	selfie.tagUser(req.session.selfieId, new user.Model({ _id: req.body.tagged}), function(err) {
 		if (err) {
 			res.render('err', {error: err});
 			return;

@@ -15,7 +15,10 @@ var Selfie = mongoose.model('Selfie', {
     ref: 'User'
   },
   path: String,
-  tagged: String,
+  tagged: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
   timestamp: { type: Date, default: Date.now }
 });
 
@@ -43,9 +46,9 @@ var uploadPhoto = function(photo, ownerId, callback) {
   });
 };
 
-var tagUser = function(selfieId, userName, callback) {
+var tagUser = function(selfieId, taggedUser, callback) {
   Selfie.findById(selfieId, function(err, selfie) {
-    selfie.tagged = userName;
+    selfie.tagged = taggedUser;
     selfie.save(callback);
   });
 };
@@ -56,8 +59,15 @@ var findAllSelfies = function(callback) {
   });
 };
 
+var findAllSelfiesFor = function(user, callback) {
+  Selfie.find({ $or: [{owner: user}, {tagged: user.name}] }, function(err, selfies) {
+    callback(err, selfies);
+  });
+};
+
 module.exports = {
   uploadPhoto: uploadPhoto,
   tagUser: tagUser,
-  findAllSelfies: findAllSelfies
+  findAllSelfies: findAllSelfies,
+  findAllSelfiesFor: findAllSelfiesFor
 };
