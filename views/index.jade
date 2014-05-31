@@ -1,6 +1,17 @@
 extends layout
 
 block content
+  div
+    p.greeting
+      span Hi 
+      span.name Asif Choudhury
+      span !
+      br
+      span You're currently in 
+      span.place 24th place 
+      span with 
+      span.points 200 points
+      span .
   a#photoButton(href="#", data-role="button", data-inset="true", class="menu-item")
     img(src="/images/cameraIcon.png")
     span Take a Photo
