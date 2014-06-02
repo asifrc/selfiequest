@@ -1,6 +1,17 @@
 extends layout
 
 block content
+  div
+    p.greeting
+      span Hi 
+      span.name= user.name
+      span !
+      br
+      span You're currently in 
+      span.place= user.place + " place " 
+      span with 
+      span.points= user.points
+      span .
   a#photoButton(href="#", data-role="button", data-inset="true", class="menu-item")
     img(src="/images/cameraIcon.png")
     span Take a Photo

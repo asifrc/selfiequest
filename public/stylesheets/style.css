@@ -39,3 +39,21 @@
 		width: 0px;
 		visibility: hidden;
 	}
+	.greeting
+	{
+		font-weight: 500;
+		font-size: x-large;
+		text-align: center;
+	}
+	.name {
+		font-weight: 600;
+		color: dimgrey;
+	}
+	.place {
+		font-weight: 600;
+		color: #26BDCF;
+	}
+	.points {
+		font-weight: 600;
+		color: #EF5BA1;
+	}
