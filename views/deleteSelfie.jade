@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  for selfie in selfies
+    h3.selfieTag= selfie.tagText
+    button(data-role="button", data-theme="b", data-icon="delete", data-inline="true") Delete
+    img.selfiePhoto(src="#{selfie.path}", width="100%")
