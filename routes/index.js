@@ -7,7 +7,7 @@ var getOrdinal = function(n) {
    var s=["th","st","nd","rd"],
        v=n%100;
    return n+(s[(v-20)%10]||s[v]||s[0]);
-}
+};
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -21,7 +21,7 @@ router.get('/', function(req, res) {
       name: rankedUser.name,
       place: getOrdinal(rankedUser.rank),
       points: rankedUser.points + " point"
-    }
+    };
     user.points += (rankedUser.points != 1) ? "s" : "";
     
     res.render('index', { title: 'Selfie Quest', user: user });    

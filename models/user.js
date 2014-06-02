@@ -33,7 +33,7 @@ var getAllNamesAndIds = function(callback) {
       var userObj = {
         name: user.name,
         _id: user._id
-      }
+      };
       userNames.push(userObj);
     });
     
@@ -49,7 +49,7 @@ var getAllSortedByRank = function(callback) {
     }
     
     //Sort Descending
-    users.sort(function(a, b) { return a.points < b.points; })
+    users.sort(function(a, b) { return a.points < b.points; });
     
     callback(err, users);
   });

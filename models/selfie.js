@@ -53,7 +53,7 @@ var tagUser = function(selfieId, owner,  taggedUserId, callback) {
   User.findById(taggedUserId, function(err, taggedUser) {
     Selfie.findById(selfieId, function(err, selfie) {
       selfie.tagged = taggedUser;
-      selfie.tagText = owner.name + " & " + taggedUser.name
+      selfie.tagText = owner.name + " & " + taggedUser.name;
       selfie.save(callback);
     });
     taggedUser.points += 1;
@@ -69,8 +69,19 @@ var findAllSelfies = function(callback) {
   Selfie.find(callback);
 };
 
+var findSelfiesFor = function(userId, callback) {
+  var criteria = [
+    {owner: userId},
+    {tagged: userId}
+  ];
+  
+  Selfie.find({ $or: criteria }, callback);
+};
+
 module.exports = {
   uploadPhoto: uploadPhoto,
   tagUser: tagUser,
-  findAllSelfies: findAllSelfies
+  findAllSelfies: findAllSelfies,
+  findFor: findSelfiesFor,
+  Model: Selfie
 };
