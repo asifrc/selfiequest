@@ -8,9 +8,9 @@ block content
       span !
       br
       span You're currently in 
-      span.place 24th place 
+      span.place= user.place + " place " 
       span with 
-      span.points 200 points
+      span.points= user.points + " points"
       span .
   a#photoButton(href="#", data-role="button", data-inset="true", class="menu-item")
     img(src="/images/cameraIcon.png")
