@@ -49,6 +49,54 @@ var uploadPhoto = function(photo, ownerId, callback) {
   });
 };
 
+var deleteSelfie = function(selfieId, callback) {
+  // delete from mongo
+  Selfie.findByIdAndRemove(selfieId, function(err, selfie) {
+    if (err) {
+      callback(err);
+      return;
+    }
+    // delete from aws
+    var client = knox.createClient(config.knox.settings);
+    var selfiePath = selfie.path;
+    var awsFolder = config.aws.targetFolder;
+    console.log(selfiePath, awsFolder); //DEV
+    var fileNameAfterUrlPathMatcher = /%2F(.*)$/
+    var selfieFileName = selfiePath.match(fileNameAfterUrlPathMatcher)[1];
+    if (selfieFileName.length < 1) {
+      callback("Name of photo not found in " + selfiePath);
+      return;
+    }
+    
+    console.log('client.deletefile: ' + awsFolder + selfieFileName);
+    client.deleteFile(awsFolder + '/' +selfieFileName, function(err, res) {
+      if (err) {
+        console.log("KNOX ERROR: ", err);
+      }
+      else {
+        console.log("DELETE SUCCESS");
+      }
+    });
+    
+    // remove points
+    User.findById(selfie.owner, removePointsFrom);
+    User.findById(selfie.tagged, removePointsFrom);
+    
+    callback(err);
+    
+  });
+  
+};
+
+var removePointsFrom = function(err, user) {
+  if (err) {
+    console.log("ERROR: Unable to fetch user in removePointsFrom");
+    return;
+  }
+  user.points = user.points - 1;
+  user.save();
+}
+
 var tagUser = function(selfieId, owner,  taggedUserId, callback) {
   User.findById(taggedUserId, function(err, taggedUser) {
     Selfie.findById(selfieId, function(err, selfie) {
@@ -80,6 +128,7 @@ var findSelfiesFor = function(userId, callback) {
 
 module.exports = {
   uploadPhoto: uploadPhoto,
+  deleteSelfie: deleteSelfie,
   tagUser: tagUser,
   findAllSelfies: findAllSelfies,
   findFor: findSelfiesFor,

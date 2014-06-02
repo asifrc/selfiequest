@@ -3,5 +3,10 @@ extends layout
 block content
   for selfie in selfies
     h3.selfieTag= selfie.tagText
-    button(data-role="button", data-theme="b", data-icon="delete", data-inline="true") Delete
+    button.deleteButton(data-role="button",
+        data-theme="b",
+        data-icon="delete",
+        data-inline="true",
+        data-value="#{selfie._id}") Delete
     img.selfiePhoto(src="#{selfie.path}", width="100%")
+  script(src="/scripts/deleteSelfie.js")

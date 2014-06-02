@@ -23,4 +23,10 @@ router.get('/admin/delete', function(req, res) {
   });
 });
 
+router.post('/admin/delete', function(req, res) {
+  selfie.deleteSelfie(req.body.id, function(err, result) {
+    res.send(JSON.stringify({error: err}));
+  });
+});
+
 module.exports = router;
