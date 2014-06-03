@@ -11,11 +11,13 @@ block content
   .leaderboard
     ul(data-role="listview", data-filter="true", data-filter-placeholder="Search Attendees...")
       for user in users
-        li.user
-          span.rank= "#" + user.rank
-          span.name= user.name
-          span.points= user.points
-      li.user
-        span.rank #3
-        span.name Asif Reza Choudhury
-        span.points 1000
+        if (user.name === "You")
+          li.user
+            span.rank= "#" + user.rank
+            span.name.user-you= user.name
+            span.points= user.points
+        else
+          li.user
+            span.rank= "#" + user.rank
+            span.name= user.name
+            span.points= user.points

@@ -18,6 +18,9 @@ block content
   a#galleryButton(href="/gallery", data-role="button", data-inset="true", class="menu-item")
     img(src="/images/galleryIcon.png")
     span Photo Gallery
+  a#leaderboardButton(href="/leaderboard", data-role="button", data-inset="true", class="menu-item")
+    img(src="/images/leaderboardIcon.jpg", width="50px")
+    span Leaderboard
   form#selfieForm(enctype="multipart/form-data", method="POST", action="/tag", data-ajax="false")
     input#photoFile(name="photoFile", type="file",accept="image/*;capture=camera",data-role="none")
     script(src="/scripts/home.js")

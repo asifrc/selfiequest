@@ -68,3 +68,7 @@
 	.user .points {
 		float: right;
 	}
+	.user-you {
+		font-weight: 700;
+		font-size: x-large !important;
+	}
