@@ -57,3 +57,14 @@
 		font-weight: 600;
 		color: #EF5BA1;
 	}
+	li.user {
+		font-weight: 600;
+		font-size: large;
+		color: dimgrey;
+	}
+	.user .rank {
+		padding-right: 10px;
+	}
+	.user .points {
+		float: right;
+	}

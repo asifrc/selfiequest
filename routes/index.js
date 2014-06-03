@@ -28,4 +28,18 @@ router.get('/', function(req, res) {
   });
 });
 
+router.get('/leaderboard', function(req, res) {
+  var you = false;
+  User.getAllWithRank(function(err, users) {
+    users.map(function(user) {
+      if (user._id == req.session.userId) {
+        user.name = "You";
+        you = user;
+      }
+    })
+    res.render('leaderboard', { title: "Leaderboard", users: users, you: you });
+  });
+});
+
+
 module.exports = router;

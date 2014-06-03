@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  .you
+  if (you)
+    ul(data-role="listview", data-inset="true")
+      li.user
+        span.rank= "#" + you.rank
+        span.name= you.name
+        span.points= you.points
+  .leaderboard
+    ul(data-role="listview", data-filter="true", data-filter-placeholder="Search Attendees...")
+      for user in users
+        li.user
+          span.rank= "#" + user.rank
+          span.name= user.name
+          span.points= user.points
+      li.user
+        span.rank #3
+        span.name Asif Reza Choudhury
+        span.points 1000

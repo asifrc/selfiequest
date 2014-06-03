@@ -9,12 +9,12 @@ router.get("/", function(req, res) {
       error: err,
       data: users
     };
-    res.contentType("application/json");
+    res.contentType('application/json');
     res.send(JSON.stringify(response));
   });
 });
 
-router.get("/myPhotos", function(req, res) {
+router.get('/myPhotos', function(req, res) {
   selfie.findFor(req.session.userId, function(err, selfies) {
     if (err) {
       res.render('error', { message: err, error: new Error(err) });
