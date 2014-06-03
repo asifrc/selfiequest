@@ -15,10 +15,16 @@ casper.test.begin("User can take a selfie, tag another user, and then view the p
   var taggedUserId;
   var taggedUserName;
 
-  casper.start(BASE_URL + "/dev/createUser");
+  casper.start(BASE_URL + '/admin');
+  
+  casper.then(function() {
+    this.fill('#adminLogin', {
+        password: 'iceland'
+    }, true);
+  });
 
   //Create a new User
-  casper.then(function() {
+  casper.thenOpen(BASE_URL + "/admin/createUser", function() {
     this.fill('#createUserForm', testUser1, true);
   });
   casper.then(function() {

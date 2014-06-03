@@ -6,8 +6,8 @@ var User = mongoose.model('User', {
   name: String,
   email: String,
   token: String,
-  points: Number}
-);
+  points: Number
+});
 
 var generateToken = function(key) {
   var salt = config.security.salt;

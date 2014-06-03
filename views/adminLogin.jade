@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  form#adminLogin(action="/admin/login", method="POST", data-ajax="false")
+    input(name="password", type="password", placeholder="Admin Password")
+    br
+    input(type="submit", value="Login")

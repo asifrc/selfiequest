@@ -33,13 +33,19 @@ app.use(logger('dev'));
 
 
 app.use('/auth/:token', auth.authenticate);
-app.use('/', admin); //For Tests only, for now..
 
+//Requires Authentication as a User
 app.use(auth.checkAuthentication);
 
 app.use('/', routes);
 app.use('/', selfies);
 app.use('/users', users);
+
+app.post('/admin/login', auth.adminLogin);
+
+//Requires Authentication as Admin and User
+app.use(auth.checkAdmin);
+app.use('/admin', admin); //For Tests only, for now..
 
 //DEV ROUTES
 app.get("/dev/tag", function(req, res) {

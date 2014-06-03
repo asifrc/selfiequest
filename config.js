@@ -10,6 +10,7 @@ module.exports = {
     targetFolder: process.env.AWS_FOLDER || "default"
   },
   security: {
-    salt: process.env.SALT || "a3jcLj3kaB"
+    salt: process.env.SALT || "a3jcLj3kaB",
+    adminPassword: process.env.ADMIN_PASSWORD || "iceland"
   }
 };
