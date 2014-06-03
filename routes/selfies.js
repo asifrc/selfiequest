@@ -42,4 +42,10 @@ router.get('/gallery', function(req, res) {
 	});
 });
 
+router.get('/pagegallery/:pageNum', function(req, res) {
+	selfie.findSelfiePage(req.params.pageNum, 1, function(err, selfies) {
+		res.render('gallery', { title: "Photo Gallery", selfies: selfies});
+	});
+});
+
 module.exports = router;

@@ -67,7 +67,7 @@ var deleteSelfie = function(selfieId, callback) {
       callback("Name of photo not found in " + selfiePath);
       return;
     }
-    
+
     console.log('client.deletefile: ' + awsFolder + selfieFileName);
     client.deleteFile(awsFolder + '/' +selfieFileName, function(err, res) {
       if (err) {
@@ -77,15 +77,15 @@ var deleteSelfie = function(selfieId, callback) {
         console.log("DELETE SUCCESS");
       }
     });
-    
+
     // remove points
     User.findById(selfie.owner, removePointsFrom);
     User.findById(selfie.tagged, removePointsFrom);
-    
+
     callback(err);
-    
+
   });
-  
+
 };
 
 var removePointsFrom = function(err, user) {
@@ -125,12 +125,21 @@ var findAllSelfies = function(callback) {
   });
 };
 
+var findSelfiePage = function(pageNumber, nPerPage, callback) {
+  Selfie.aggregate(
+    [
+      {$skip: pageNumber > 0 ? ((pageNumber-1)*nPerPage) : 0},
+      {$limit: nPerPage}
+    ],
+    callback);
+};
+
 var findSelfiesFor = function(userId, callback) {
   var criteria = [
     {owner: userId},
     {tagged: userId}
   ];
-  
+
   Selfie.find({ $or: criteria }, callback);
 };
 
@@ -139,6 +148,7 @@ module.exports = {
   deleteSelfie: deleteSelfie,
   tagUser: tagUser,
   findAllSelfies: findAllSelfies,
+  findSelfiePage: findSelfiePage,
   findFor: findSelfiesFor,
   Model: Selfie
 };
