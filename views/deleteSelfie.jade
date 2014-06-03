@@ -2,11 +2,19 @@ extends layout
 
 block content
   for selfie in selfies
-    h3.selfieTag= selfie.tagText
-    button.deleteButton(data-role="button",
-        data-theme="b",
-        data-icon="delete",
-        data-inline="true",
-        data-value="#{selfie._id}") Delete
-    img.selfiePhoto(src="#{selfie.path}", width="100%")
+    .selfie(data-value="#{selfie._id}")
+      h3.selfieTag= selfie.tagText
+      button.deleteButton(data-role="button",
+          data-theme="b",
+          data-icon="delete",
+          data-inline="true",
+          data-value="#{selfie._id}") Delete
+      img.selfiePhoto(src="#{selfie.path}", width="100%")
+  #confirmPopup(data-role="popup", data-dismissible="false")
+    div(data-role="header")
+      h1 Delete Selfie?
+    .ui-content(role="main")
+      h3.ui-title Are you sure you want to delete this selfie?
+      button#deleteConfirm(data-role="button", data-theme="b", data-inline="true") Delete
+      button(data-rel="back", data-role="button", data-inline="true") Cancel
   script(src="/scripts/deleteSelfie.js")
