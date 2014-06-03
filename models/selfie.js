@@ -114,7 +114,15 @@ var tagUser = function(selfieId, owner,  taggedUserId, callback) {
 };
 
 var findAllSelfies = function(callback) {
-  Selfie.find(callback);
+  Selfie.find(function(err, allSelfies) {
+    var selfies = [];
+    allSelfies.map(function(selfie) {
+      if (selfie.tagged) {
+        selfies.push(selfie);
+      }
+    })
+    callback(err, selfies);
+  });
 };
 
 var findSelfiesFor = function(userId, callback) {
