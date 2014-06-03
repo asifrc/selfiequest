@@ -2,7 +2,12 @@ var mongoose = require('mongoose');
 var crypto = require('crypto');
 var config = require('../config');
 
-var User = mongoose.model('User', {name: String, email: String, token: String, points: Number});
+var User = mongoose.model('User', {
+  name: String,
+  email: String,
+  token: String,
+  points: Number}
+);
 
 var generateToken = function(key) {
   var salt = config.security.salt;
