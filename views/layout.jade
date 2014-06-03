@@ -11,7 +11,7 @@ html
     script(src="https://code.jquery.com/jquery-1.10.2.min.js")
     script(src="https://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js")
   body
-    div(data-role="page")
+    div(data-role="page", id="main")
       .ui-content(role="main")
         #banner
           img(width="30%", src="/images/awayDayLogo.png")
@@ -21,3 +21,5 @@ html
           span#spQuest Quest
 
         block content
+      div(data-role="footer", data-position="fixed", id="footer")
+        include footer

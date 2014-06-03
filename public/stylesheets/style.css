@@ -2,6 +2,10 @@
 		font-family: 'Open Sans', sans-serif;
 		font-weight: 300;
 	}
+	#footer {
+		position:absolute;
+		border: 0px;
+	}
 	.menu-item {
 		height: 50px;
 		line-height: 50px;
@@ -39,8 +43,7 @@
 		width: 0px;
 		visibility: hidden;
 	}
-	.greeting
-	{
+	.greeting {
 		font-weight: 500;
 		font-size: x-large;
 		text-align: center;
@@ -71,4 +74,13 @@
 	.user-you {
 		font-weight: 700;
 		font-size: x-large !important;
+	}
+	.homeIcon {
+		display: inline-block;
+		width: 40px;
+	}
+	.homeLink {
+		padding: 0 0 0 0;
+		margin: 0 0 0 0;
+		border-image-width: 0px;
 	}
