@@ -1,6 +1,6 @@
 var BASE_URL = "http://localhost:3000";
 
-casper.test.begin("User can take a selfie, tag another user, and then view the photo from the gallery", function(test) {
+casper.test.begin("User can take a selfie, tag another user, and then view the photo from the gallery. User views own gallery and deletes it", function(test) {
   var testUser1 = {
     'name': "Michelle",
     'email': "michelle@example.com"
@@ -61,6 +61,28 @@ casper.test.begin("User can take a selfie, tag another user, and then view the p
       'tagged':  taggedUserId
     }, true);
   });
+
+  casper.thenOpen(BASE_URL + '/myPhotos');
+
+  var selfieCountBeforeDeleting;
+
+  casper.then(function() {
+    test.assertEquals(this.currentUrl, BASE_URL + "/myPhotos");
+    selfieCountBeforeDeleting = this.evaluate(function(url) {
+      var selfieCount = $('.selfie').size();
+      $('.deleteButton').first().trigger('click');
+      $('#deleteConfirm').trigger('click');
+      return selfieCount;
+    });
+  })
+
+  casper.thenOpen(BASE_URL + '/myPhotos');
+
+  casper.then(function() {
+    test.assertTrue(this.evaluate(function(selfieCount) {
+      return ($('.selfie').size() == (selfieCount - 1));
+    }, selfieCountBeforeDeleting));
+  })
 
   casper.thenOpen(BASE_URL + '/gallery');
 

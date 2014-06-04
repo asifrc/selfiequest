@@ -14,18 +14,13 @@ router.post('/createUser', function(req, res) {
 });
 
 router.get('/deleteSelfie', function(req, res) {
+  console.log("/admin/deleteSelfie");
   selfie.findAllSelfies(function(err, selfies) {
     if (err) {
       res.render('error', { message: err, error: new Error(err) });
       return;
     }
     res.render('deleteSelfie', { title: "Delete Selfies", selfies: selfies});
-  });
-});
-
-router.post('/deleteSelfie', function(req, res) {
-  selfie.deleteSelfie(req.body.id, function(err, result) {
-    res.send(JSON.stringify({error: err}));
   });
 });
 

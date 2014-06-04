@@ -22,6 +22,12 @@ router.post('/tag', function(req, res) {
 	});
 });
 
+router.post('/deleteSelfie', function(req, res) {
+  selfie.deleteSelfie(req.body.id, function(err, result) {
+    res.send(JSON.stringify({error: err}));
+  });
+});
+
 router.post('/save', function(req, res) {
 	var owner =  {
 		name: req.session.userName,

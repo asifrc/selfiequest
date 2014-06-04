@@ -39,13 +39,14 @@ app.use(auth.checkAuthentication);
 
 app.use('/', routes);
 app.use('/', selfies);
+app.use('/', users);
 app.use('/users', users);
 
 app.post('/admin/login', auth.adminLogin);
 
 //Requires Authentication as Admin and User
 app.use(auth.checkAdmin);
-app.use('/admin', admin); //For Tests only, for now..
+app.use('/admin', admin);
 
 //DEV ROUTES
 app.get("/dev/tag", function(req, res) {

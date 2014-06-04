@@ -150,6 +150,6 @@ module.exports = {
   tagUser: tagUser,
   findAllSelfies: findAllSelfies,
   findSelfiePage: findSelfiePage,
-  findFor: findSelfiesFor,
+  findSelfiesFor: findSelfiesFor,
   Model: Selfie
 };

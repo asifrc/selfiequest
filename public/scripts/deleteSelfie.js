@@ -6,7 +6,7 @@ $('.deleteButton').on('click', function() {
 });
 
 $('#deleteConfirm').on('click', function() {
-  $.post('/admin/deleteSelfie', { id: dataID },  function(response) {
+  $.post('/deleteSelfie', { id: dataID },  function(response) {
     $('div[data-value="' + dataID +'"]').fadeOut(function() { $(this).remove(); });
     $('#confirmPopup').popup('close');
   });
