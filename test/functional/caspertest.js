@@ -79,10 +79,12 @@ casper.test.begin("User can take a selfie, tag another user, and then view the p
   casper.thenOpen(BASE_URL + '/myPhotos');
 
   casper.then(function() {
-    test.assertTrue(this.evaluate(function(selfieCount) {
-      return ($('.selfie').size() == (selfieCount - 1));
-    }, selfieCountBeforeDeleting));
-  })
+    var newSelfieCount = this.evaluate(function() {
+      return $('.selfie').size();
+    });
+    var expectedSelfieCount = selfieCountBeforeDeleting - 1;
+    test.assertEquals(newSelfieCount, expectedSelfieCount);
+  });
 
   casper.thenOpen(BASE_URL + '/gallery');
 if (false) {
