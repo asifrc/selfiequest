@@ -3,8 +3,7 @@
 		font-weight: 300;
 	}
 	#footer {
-		position:absolute;
-		border: 0px;
+		border: none;
 	}
 	.menu-item {
 		height: 50px;
