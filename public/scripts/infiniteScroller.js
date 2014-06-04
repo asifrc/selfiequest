@@ -102,12 +102,3 @@
 $(document).on('pagebeforehide', function() {
     $(window).off('scrollstop.infinitescroll resize.infinitescroll');
 });
-
-$('#list').infinitescroll({
-    // required options
-    navElement: '#nextPage',
-    itemsToLoad: '.selfie'
-}, function(){
-    // optional callback function
-    $('#list').listview('refresh');
-});

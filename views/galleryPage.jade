@@ -4,4 +4,4 @@
       h3.selfieTag= selfie.tagText
       img.selfiePhoto(src="#{selfie.path}", width="100%")
   if (nextPage !== "")
-    a#nextPage(href="/gallery/#{nextPage}") Next Page
+    a#nextPage(href="/gallery/#{nextPage}", data-ajax="false") Next Page
