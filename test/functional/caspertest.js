@@ -81,11 +81,7 @@ casper.test.begin("User can take a selfie, tag another user, and then view the p
 /*
   See that my photo uploaded and we're tagged properly
 */
-var nextPageUrl;
-var nurl;
-
 casper.thenOpen(BASE_URL + "/gallery/1", function() {
-  this.echo("URL after going to gallery: " + BASE_URL + nextPageUrl);
   test.assertEquals(this.currentUrl, BASE_URL + "/gallery/1");
   var imageExists = function(url) {
     var photos = document.getElementsByClassName('selfiePhoto');
@@ -96,7 +92,6 @@ casper.thenOpen(BASE_URL + "/gallery/1", function() {
       false;
     }
   };
-  
 
   test.assertTrue(this.evaluate(imageExists, imageUrl));
 
@@ -110,7 +105,7 @@ casper.thenOpen(BASE_URL + "/gallery/1", function() {
     }
     test.assertTrue(this.evaluate(tagExists, taggedUserName));
   }
-  
+
 });
 
 /*

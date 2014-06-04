@@ -24,6 +24,7 @@ var create = function(firstName, name, email) {
   user.points = 0;
 
   user.save();
+  console.log(name + " (" + email + ") - /auth/" + user.token);
 };
 
 var parseCsvLineForUserInfo = function(line) {
@@ -50,9 +51,7 @@ var getAndCreateUsersFromCsvFile = function(csvFile) {
         console.log ("error: " + error);
     })
     .on ("line", function (line){
-        console.log ("line: " + line);
         var nameAndEmail = parseCsvLineForUserInfo(line);
-        console.log(nameAndEmail);
         create(nameAndEmail.firstName, nameAndEmail.name, nameAndEmail.email);
     })
     .on ("end", function (){
