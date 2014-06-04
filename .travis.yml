@@ -6,6 +6,11 @@ services:
 before_install:
 - npm install -g grunt-cli
 script: npm test
+notifications:
+  email:
+    - archoud@thoughtworks.com
+    - crowshan@thoughtworks.com
+    - julee@thoughtworks.com
 deploy:
   provider: heroku
   api_key: d24a23ad-3c56-4491-b885-9ab54de40c55
