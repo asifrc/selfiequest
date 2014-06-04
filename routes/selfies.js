@@ -37,14 +37,19 @@ router.post('/save', function(req, res) {
 });
 
 router.get('/gallery', function(req, res) {
-	selfie.findAllSelfies(function(err, selfies) {
-		res.render('gallery', { title: "Photo Gallery", selfies: selfies});
+	selfie.findSelfiePage(0, 1, function(err, selfies) {
+		res.render('pagedGallery', { title: "Photo Gallery", selfies: selfies});
 	});
 });
 
-router.get('/pagegallery/:pageNum', function(req, res) {
-	selfie.findSelfiePage(req.params.pageNum, 1, function(err, selfies) {
-		res.render('gallery', { title: "Photo Gallery", selfies: selfies});
+router.get('/gallery/:pageNum', function(req, res) {
+	var pageNum = parseInt(req.params.pageNum);
+	var selfiesPerPage = 1;
+	selfie.findSelfiePage(pageNum, selfiesPerPage, function(err, selfies) {
+		nextPage = (selfies.length < selfiesPerPage) ? "" : pageNum + 1;
+		res.render('galleryPage', { title: "Photo Gallery",
+																selfies: selfies,
+																nextPage: nextPage });
 	});
 });
 

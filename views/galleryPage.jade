@@ -1,0 +1,7 @@
+.ajaxPage
+  for selfie in selfies
+    .selfie
+      h3.selfieTag= selfie.tagText
+      img.selfiePhoto(src="#{selfie.path}", width="100%")
+  if (nextPage !== "")
+    a#nextPage(href="/pagegallery/#{nextPage}") Next Page

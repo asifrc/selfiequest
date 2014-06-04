@@ -126,11 +126,12 @@ var findAllSelfies = function(callback) {
 };
 
 var findSelfiePage = function(pageNumber, nPerPage, callback) {
-  Selfie.aggregate(
-    [
-      {$skip: pageNumber > 0 ? ((pageNumber-1)*nPerPage) : 0},
-      {$limit: nPerPage}
-    ],
+  var pagesToSkip = pageNumber > 0 ? ((pageNumber-1)*nPerPage) : 0;
+  Selfie.find({ tagText: { $ne: null } },null,
+    {
+      skip: pagesToSkip,
+      limit: nPerPage
+    },
     callback);
 };
 
