@@ -47,17 +47,7 @@ var getAllNamesAndIds = function(callback) {
 };
 
 var getAllSortedByRank = function(callback) {
-  User.find(function(err, users) {
-    if (err) {
-      callback(err);
-      return;
-    }
-    
-    //Sort Descending
-    users.sort(function(a, b) { return a.points < b.points; });
-    
-    callback(err, users);
-  });
+  User.find(null, null, { sort: { points: -1 } }, callback);
 };
 
 var getAllWithRank = function(callback) {
