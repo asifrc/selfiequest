@@ -11,7 +11,7 @@ casper.test.begin("User can take a selfie, tag another user, and then view the p
     'lastName': "Barker",
     'email': "bob@example.com"
   };
-  var token = "fe4788dd07a506e5c4c662e636dc3f46";
+  var token = "c33d0558ea0215a4572c7f26185bbc24";
 
   var imageUrl = "testimage";
   var taggedUserId;
