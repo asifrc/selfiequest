@@ -42,9 +42,6 @@ casper.test.begin("User can take a selfie, tag another user, and then view the p
   });
 
   casper.thenOpen(BASE_URL + '/', function() {
-    casper.evaluate(function() {
-      document.getElementById('selfieForm').sumbit();
-    });
     this.fill('#selfieForm', {
       'photoFile': require('fs').workingDirectory + '/test/functional/galleryIcon.png'
     }, true);
