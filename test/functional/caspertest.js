@@ -17,6 +17,9 @@ casper.test.begin("User can take a selfie, tag another user, and then view the p
   var taggedUserId;
   var taggedUserName;
 
+/*
+  Log in as Admin
+*/
   casper.start(BASE_URL + '/admin');
 
   casper.then(function() {
@@ -25,7 +28,9 @@ casper.test.begin("User can take a selfie, tag another user, and then view the p
     }, true);
   });
 
-  //Create a new User
+/*
+  Create Michelle and Bob as users
+*/
   casper.thenOpen(BASE_URL + "/admin/createUser", function() {
     this.fill('#createUserForm', testUser1, true);
   });
@@ -33,22 +38,34 @@ casper.test.begin("User can take a selfie, tag another user, and then view the p
     this.fill('#createUserForm', testUser2, true);
   });
 
+/*
+  Log in as Michelle
+*/
   casper.thenOpen(BASE_URL + "/auth/" + token, function() {
     test.assertFalse(this.exists('#errorMessage'));
   });
 
+/*
+  Decide Who I want to take a selfie with
+*/
   casper.thenOpen(BASE_URL + '/users', function() {
     var user = JSON.parse(this.getPageContent()).data[0];
     taggedUserId = user._id;
     taggedUserName = user.name;
   });
 
+/*
+  Take a selfie
+*/
   casper.thenOpen(BASE_URL + '/', function() {
     this.fill('#selfieForm', {
       'photoFile': require('fs').workingDirectory + '/test/functional/galleryIcon.png'
     }, true);
   });
 
+/*
+  Tag another person
+*/
   casper.then(function() {
     test.assertEquals(this.currentUrl, BASE_URL + "/tag");
 
@@ -60,6 +77,11 @@ casper.test.begin("User can take a selfie, tag another user, and then view the p
       'tagged':  taggedUserId
     }, true);
   });
+
+
+/*
+  Delete my photo
+*/
 
   casper.thenOpen(BASE_URL + '/myPhotos');
 
@@ -75,6 +97,9 @@ casper.test.begin("User can take a selfie, tag another user, and then view the p
     });
   })
 
+/*
+  See that my photo is deleted
+*/
   casper.thenOpen(BASE_URL + '/myPhotos');
 
   casper.then(function() {
@@ -85,27 +110,6 @@ casper.test.begin("User can take a selfie, tag another user, and then view the p
     test.assertEquals(newSelfieCount, expectedSelfieCount);
   });
 
-  casper.thenOpen(BASE_URL + '/gallery');
-if (false) {
-  casper.then(function() {
-    test.assertEquals(this.currentUrl, BASE_URL + "/gallery");
-    var imageExists = function(url) {
-      return $('.selfiePhoto').toArray().reduce(function(prev, curr) {
-        return prev || (curr.src == url);
-      }, false);
-    };
-
-    test.assertTrue(this.evaluate(imageExists, imageUrl));
-
-    var tagExists = function(tagText) {
-          return $('.selfieTag').toArray().reduce(function(prev, curr) {
-            return prev || (curr.textContent.indexOf(tagText) > -1);
-          }, false);
-      };
-
-    test.assertTrue(this.evaluate(tagExists, taggedUserName));
-  });
-}
   casper.run(function() {
     test.done();
   });
