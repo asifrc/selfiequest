@@ -14,6 +14,16 @@ router.get("/users", function(req, res) {
   });
 });
 
+router.get('/viewPhotos/:userID', function(req, res) {
+   selfie.findSelfiesFor(req.params.userID, function(err, selfies) {
+     if (err) {
+       res.render('error', { message: err, error: new Error(err) });
+       return;
+     }
+     res.render('gallery', { title: "My Photos", selfies: selfies});
+   });
+});
+
 router.get('/myPhotos', function(req, res) {
   selfie.findSelfiesFor(req.session.userId, function(err, selfies) {
     if (err) {

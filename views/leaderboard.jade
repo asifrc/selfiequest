@@ -13,11 +13,13 @@ block content
       for user in users
         if (user.name === "You")
           li.user
-            span.rank= "#" + user.rank
-            span.name.user-you= user.name
-            span.points= user.points
+            a(href="/myPhotos")
+              span.rank= "#" + user.rank
+              span.name.user-you= user.name
+              span.points= user.points
         else
           li.user
-            span.rank= "#" + user.rank
-            span.name= user.name
-            span.points= user.points
+            a(href="/viewPhotos/#{user._id}")
+              span.rank= "#" + user.rank
+              span.name= user.name
+              span.points= user.points
