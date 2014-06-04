@@ -132,7 +132,7 @@ var selfieAlreadyExists = function(ownerId, taggedUserId, callback) {
 }
 
 var findAllSelfies = function(callback) {
-  Selfie.find(null, null, { sort: { timestamp: -1 } }, function(err, allSelfies) {
+  Selfie.find({ tagText: { $ne: null } }, null, { sort: { timestamp: -1 } }, function(err, allSelfies) {
     var selfies = [];
     allSelfies.map(function(selfie) {
       if (selfie.tagged) {
@@ -162,7 +162,7 @@ var findSelfiesFor = function(userId, callback) {
     {tagged: userId}
   ];
 
-  Selfie.find({ $or: criteria }, null, { sort: { timestamp: -1 } },callback);
+  Selfie.find({ $or: criteria, tagText: { $ne: null } }, null, { sort: { timestamp: -1 } },callback);
 };
 
 module.exports = {
