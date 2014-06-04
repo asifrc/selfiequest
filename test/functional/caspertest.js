@@ -2,11 +2,13 @@ var BASE_URL = "http://localhost:3000";
 
 casper.test.begin("User can take a selfie, tag another user, and then view the photo from the gallery. User views own gallery and deletes it", function(test) {
   var testUser1 = {
-    'name': "Michelle",
+    'firstName': "Michelle",
+    'lastName': "Smith",
     'email': "michelle@example.com"
   };
   var testUser2 = {
-    'name': "Bob",
+    'firstName': "Bob",
+    'lastName': "Barker",
     'email': "bob@example.com"
   };
   var token = "fe4788dd07a506e5c4c662e636dc3f46";
@@ -16,7 +18,7 @@ casper.test.begin("User can take a selfie, tag another user, and then view the p
   var taggedUserName;
 
   casper.start(BASE_URL + '/admin');
-  
+
   casper.then(function() {
     this.fill('#adminLogin', {
         password: 'iceland'

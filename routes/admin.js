@@ -8,7 +8,7 @@ router.get('/createUser', function(req, res) {
 });
 
 router.post('/createUser', function(req, res) {
-  user.create(req.body.name, req.body.email, function(err) {
+  user.create(req.body.firstName, req.body.lastName, req.body.email, function(err) {
     res.render('createUser');
   });
 });
