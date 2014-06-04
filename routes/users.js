@@ -4,7 +4,7 @@ var selfie = require('../models/selfie');
 var router = express.Router();
 
 router.get("/users", function(req, res) {
-  user.getAllNamesAndIds(function(err, users) {
+  user.getAllOtherNamesAndIds(req.session.userId, function(err, users) {
     var response = {
       error: err,
       data: users

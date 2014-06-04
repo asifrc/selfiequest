@@ -27,24 +27,8 @@ var findByToken = function(token, callback) {
   User.findOne({token: token}, callback);
 };
 
-var getAllNamesAndIds = function(callback) {
-  User.find(function(err, users) {
-    if (err) {
-      callback(err);
-      return;
-    }
-
-    var userNames = [];
-    users.map(function(user) {
-      var userObj = {
-        name: user.name,
-        _id: user._id
-      };
-      userNames.push(userObj);
-    });
-
-    callback(err, userNames);
-  });
+var getAllOtherNamesAndIds = function(myId, callback) {
+  User.find({ _id: { $ne: myId} }, 'name id', null, callback);
 };
 
 var getAllSortedByRank = function(callback) {
@@ -91,7 +75,7 @@ var getRankFor = function(userId, callback) {
 module.exports = {
   create: create,
   findByToken: findByToken,
-  getAllNamesAndIds: getAllNamesAndIds,
+  getAllOtherNamesAndIds: getAllOtherNamesAndIds,
   getAllWithRank: getAllWithRank,
   getRankFor: getRankFor,
   Model: User
