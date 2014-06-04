@@ -104,14 +104,32 @@ var tagUser = function(selfieId, owner,  taggedUserId, callback) {
       selfie.tagText = owner.name + " & " + taggedUser.name;
       selfie.save(callback);
     });
-    taggedUser.points += 1;
-    taggedUser.save();
-    User.findById(owner._id, function(err, user) {
-      user.points += 1;
-      user.save();
+    selfieAlreadyExists(owner._id, taggedUserId, function(err, selfieCount) {
+      if (err) {
+        callback(err);
+        return;
+      }
+      if (selfieCount == 0) {
+        User.findById(owner._id, function(err, user) {
+          user.points += 1;
+          user.save();
+        });
+        taggedUser.points += 1;
+        taggedUser.save();
+        callback(err);
+      }
     });
   });
 };
+
+var selfieAlreadyExists = function(ownerId, taggedUserId, callback) {
+  var criteria = [
+    {owner: ownerId, tagged: taggedUserId},
+    {owner: taggedUserId, tagged: ownerId}
+  ];
+
+  Selfie.count({ $or: criteria }, callback);
+}
 
 var findAllSelfies = function(callback) {
   Selfie.find(function(err, allSelfies) {

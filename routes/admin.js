@@ -14,7 +14,6 @@ router.post('/createUser', function(req, res) {
 });
 
 router.get('/deleteSelfie', function(req, res) {
-  console.log("/admin/deleteSelfie");
   selfie.findAllSelfies(function(err, selfies) {
     if (err) {
       res.render('error', { message: err, error: new Error(err) });
