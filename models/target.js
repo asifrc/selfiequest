@@ -71,10 +71,14 @@ var generateNextTarget = function(ownerId, callback, quantity, data) {
 var eliminateTarget = function(ownerId, targetId, callback) {
   var criteria = {
     owner: ownerId,
-    target: targetId
+    target: targetId,
+    status: "in progress"
   };
   TargetPair.findOne(criteria, function(err, targetPair) {
-    console.log(err, targetPair);
+    if (err || targetPair === null) {
+      callback(err, null);
+      return;
+    }
     var points = targetPair.value;
     targetPair.status = "complete";
     targetPair.save(function(err) {
