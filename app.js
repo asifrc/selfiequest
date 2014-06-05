@@ -12,6 +12,7 @@ var admin = require('./routes/admin');
 var selfies = require('./routes/selfies');
 var auth = require('./routes/auth');
 var users = require('./routes/users');
+var targets = require('./routes/targets');
 
 var app = express();
 
@@ -41,6 +42,7 @@ app.use('/', routes);
 app.use('/', selfies);
 app.use('/', users);
 app.use('/users', users);
+app.use('/targets', targets);
 
 app.post('/admin/login', auth.adminLogin);
 
