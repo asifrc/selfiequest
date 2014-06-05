@@ -48,6 +48,15 @@ app.post('/admin/login', auth.adminLogin);
 app.use(auth.checkAdmin);
 app.use('/admin', admin);
 
+app.use(function(req, res, next) {
+  console.log(req.url);
+  if (req.headers['x-forwarded-proto'] !== 'https') {
+    return res.redirect("https://" + req.headers.host + req.url); 
+  } else {
+    return next();
+  }
+});
+
 //DEV ROUTES
 app.get("/dev/tag", function(req, res) {
   res.render('tag', { imgPath: '/images/galleryIcon.png'});
@@ -71,15 +80,6 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
-
-if (app.get('env') !== 'development') {
-  app.use(function(req, res, next) {
-    var schema = req.headers["x-forwarded-proto"];
-    if (schema === "https")
-      return next();
-    res.redirect("https://" + req.headers.host + req.url);
-  });
-}
 
 /// error handlers
 
