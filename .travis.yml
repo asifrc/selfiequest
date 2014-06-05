@@ -5,7 +5,7 @@ services:
 - mongodb
 before_install:
 - npm install -g grunt-cli
-script: npm test
+script: mkdir hello
 notifications:
   email:
     - archoud@thoughtworks.com
