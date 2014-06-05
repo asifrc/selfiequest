@@ -43,7 +43,7 @@ router.post('/save', function(req, res) {
 });
 
 router.get('/gallery', function(req, res) {
-	selfie.findSelfiePage(0, 1, function(err, selfies) {
+	selfie.findSelfiePage({}, 0, 1, function(err, selfies) {
 		res.render('pagedGallery', {
 			title: "Photo Gallery",
 			selfies: selfies,
