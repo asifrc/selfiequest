@@ -13,6 +13,8 @@ var selfies = require('./routes/selfies');
 var auth = require('./routes/auth');
 var users = require('./routes/users');
 
+var config = require('./config');
+
 var app = express();
 
 // view engine setup
@@ -31,9 +33,9 @@ app.use(expressSession({
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
 
-console.log("ENV: " + app.get('env'));
+console.log("config.aws.environment: " + config.aws.environment);
 
-if (app.get('env') !== 'development') {
+if (config.aws.environment !== 'dev') {
   console.log("inside production");
   app.use(function(req, res, next) {
     if (req.headers['x-forwarded-proto'] !== 'https') {

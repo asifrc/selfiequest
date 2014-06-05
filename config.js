@@ -7,7 +7,8 @@ module.exports = {
       }
   },
   aws: {
-    targetFolder: process.env.AWS_FOLDER || "default"
+    targetFolder: process.env.AWS_FOLDER || "default",
+    environment: process.env.ENVIRONMENT || "dev"
   },
   security: {
     salt: process.env.SALT || "a3jcLj3kaB",
