@@ -32,15 +32,15 @@ app.use(expressSession({
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
 
-if (app.get('env') !== 'development') {
-  app.use(function(req, res, next) {
-    if (req.headers['x-forwarded-proto'] !== 'https') {
-      return res.redirect("https://" + req.headers.host + req.url); 
-    } else {
-      return next();
-    }
-  });
-}
+// if (app.get('env') !== 'development') {
+app.use(function(req, res, next) {
+  if (req.headers['x-forwarded-proto'] !== 'https') {
+    return res.redirect("https://" + req.headers.host + req.url); 
+  } else {
+    return next();
+  }
+});
+// }
 
 app.use('/auth/:token', auth.authenticate);
 
