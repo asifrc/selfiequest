@@ -2,5 +2,5 @@ extends layout
 
 block content
   ul#galleryList(data-role="listview")
-  a#nextPage(href="/gallery/1", data-ajax="false") Next Page
+  a#nextPage(href="#{initialPage}", data-ajax="false") Next Page
   script(src="/scripts/pagedGallery.js")

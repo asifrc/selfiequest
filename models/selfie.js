@@ -143,9 +143,10 @@ var findAllSelfies = function(callback) {
   });
 };
 
-var findSelfiePage = function(pageNumber, nPerPage, callback) {
+var findSelfiePage = function(filter, pageNumber, nPerPage, callback) {
   var pagesToSkip = pageNumber > 0 ? ((pageNumber-1)*nPerPage) : 0;
-  Selfie.find({ tagText: { $ne: null } },null,
+  filter.tagText = { $ne: null }
+  Selfie.find(filter,null,
     {
       skip: pagesToSkip,
       limit: nPerPage,
