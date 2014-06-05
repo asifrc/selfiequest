@@ -4,7 +4,7 @@ var selfie = require('./selfie');
 
 var ObjectId = mongoose.Schema.ObjectId;
 
-var Target = mongoose.model('Target', {
+var TargetPair = mongoose.model('Target', {
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
@@ -38,7 +38,7 @@ var generateNextTarget = function(ownerId, callback, quantity, data) {
         var otherUser = (selfie.owner == ownerId) ? selfie.tagged : selfie.owner;
         delete potentialTargets[otherUser];
       });
-      Target.find({ owner: owner}, function(err, existingTargets) {
+      TargetPair.find({ owner: owner}, function(err, existingTargets) {
         existingTargets.map(function(xTarget) {
           delete potentialTargets[xTarget.target];
         });
@@ -52,15 +52,15 @@ var generateNextTarget = function(ownerId, callback, quantity, data) {
         var counter = 0;
         if (newTargets.length > 0) {
           newTargets.map(function(targetUser) {
-            var newTarget = new Target({
-              owner: owner,
-              target: targetUser    
+            var targetPair = new TargetPair({
+              owner: ownerId,
+              target: targetUser._id  
             });
             var cb = function() {};
             if (counter++ === 0) {
               cb = function(error) { callback(error, data); };
             }
-            newTarget.save(cb);
+            targetPair.save(cb);
           });
         }
         else {
@@ -70,6 +70,7 @@ var generateNextTarget = function(ownerId, callback, quantity, data) {
     });
   });
 };
+
 
 module.exports = {
   generateNextTarget: generateNextTarget
