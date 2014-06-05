@@ -10,4 +10,10 @@ router.get('/new', function(req, res) {
   });
 });
 
+router.get('/kill', function(req, res) {
+  target.eliminateTarget(req.session.userId, "53900e4cd9113c0f40d6293d", function(err) {
+    res.send("Target Eliminated!");
+  });
+});
+
 module.exports = router;

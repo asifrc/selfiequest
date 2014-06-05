@@ -2,8 +2,6 @@ var mongoose = require('mongoose');
 var user = require('./user');
 var selfie = require('./selfie');
 
-var ObjectId = mongoose.Schema.ObjectId;
-
 var TargetPair = mongoose.model('Target', {
   owner: {
     type: mongoose.Schema.Types.ObjectId,
@@ -24,7 +22,6 @@ var generateNextTarget = function(ownerId, callback, quantity, data) {
   // $1 Find every user
     // $2 Find every selfie i took or am tagged in
       // $3 Eliminate from $1 every 'other' user tagged in $2
-  var owner = ObjectId(ownerId);
   user.Model.find(function(err, users) {
     var potentialTargets = [];
     users.map(function(user) {
@@ -38,7 +35,7 @@ var generateNextTarget = function(ownerId, callback, quantity, data) {
         var otherUser = (selfie.owner == ownerId) ? selfie.tagged : selfie.owner;
         delete potentialTargets[otherUser];
       });
-      TargetPair.find({ owner: owner}, function(err, existingTargets) {
+      TargetPair.find({ owner: ownerId}, function(err, existingTargets) {
         existingTargets.map(function(xTarget) {
           delete potentialTargets[xTarget.target];
         });
@@ -71,7 +68,22 @@ var generateNextTarget = function(ownerId, callback, quantity, data) {
   });
 };
 
+var eliminateTarget = function(ownerId, targetId, callback) {
+  var criteria = {
+    owner: ownerId,
+    target: targetId
+  };
+  TargetPair.findOne(criteria, function(err, targetPair) {
+    console.log(err, targetPair);
+    var points = targetPair.value;
+    targetPair.status = "complete";
+    targetPair.save(function(err) {
+      generateNextTarget(ownerId, callback, 1, points);
+    });
+  });
+};
 
 module.exports = {
-  generateNextTarget: generateNextTarget
+  generateNextTarget: generateNextTarget,
+  eliminateTarget: eliminateTarget
 };
