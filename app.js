@@ -15,6 +15,7 @@ var users = require('./routes/users');
 
 var app = express();
 
+// forcing SSL
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -30,7 +31,6 @@ app.use(expressSession({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
-
 
 app.use('/auth/:token', auth.authenticate);
 
@@ -71,6 +71,15 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
+
+if (app.get('env') !== 'development') {
+  app.use(function(req, res, next) {
+    if(!req.secure) {
+      return res.redirect(['https://', req.get('Host'), req.url].join(''));
+    }
+    next();
+  });
+}
 
 /// error handlers
 
