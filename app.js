@@ -32,6 +32,16 @@ app.use(expressSession({
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
 
+if (app.get('env') !== 'development') {
+  app.use(function(req, res, next) {
+    if (req.headers['x-forwarded-proto'] !== 'https') {
+      return res.redirect("https://" + req.headers.host + req.url); 
+    } else {
+      return next();
+    }
+  });
+}
+
 app.use('/auth/:token', auth.authenticate);
 
 //Requires Authentication as a User
@@ -47,15 +57,6 @@ app.post('/admin/login', auth.adminLogin);
 //Requires Authentication as Admin and User
 app.use(auth.checkAdmin);
 app.use('/admin', admin);
-
-app.use(function(req, res, next) {
-  console.log(req.url);
-  if (req.headers['x-forwarded-proto'] !== 'https') {
-    return res.redirect("https://" + req.headers.host + req.url); 
-  } else {
-    return next();
-  }
-});
 
 //DEV ROUTES
 app.get("/dev/tag", function(req, res) {
