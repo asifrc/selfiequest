@@ -61,7 +61,7 @@ var deleteSelfie = function(selfieId, callback) {
     var selfiePath = selfie.path;
     var awsFolder = config.aws.targetFolder;
     console.log(selfiePath, awsFolder); //DEV
-    var fileNameAfterUrlPathMatcher = /%2F(.*)$/
+    var fileNameAfterUrlPathMatcher = /%2F(.*)$/;
     var selfieFileName = selfiePath.match(fileNameAfterUrlPathMatcher)[1];
     if (selfieFileName.length < 1) {
       callback("Name of photo not found in " + selfiePath);
@@ -95,7 +95,7 @@ var removePointsFrom = function(err, user) {
   }
   user.points = user.points - 1;
   user.save();
-}
+};
 
 var tagUser = function(selfieId, owner,  taggedUserId, callback) {
   User.findById(taggedUserId, function(err, taggedUser) {
@@ -109,7 +109,7 @@ var tagUser = function(selfieId, owner,  taggedUserId, callback) {
         callback(err);
         return;
       }
-      if (selfieCount == 0) {
+      if (selfieCount === 0) {
         User.findById(owner._id, function(err, user) {
           user.points += 1;
           user.save();
@@ -129,7 +129,7 @@ var selfieAlreadyExists = function(ownerId, taggedUserId, callback) {
   ];
 
   Selfie.count({ $or: criteria }, callback);
-}
+};
 
 var findAllSelfies = function(callback) {
   Selfie.find({ tagText: { $ne: null } }, null, { sort: { timestamp: -1 } }, function(err, allSelfies) {
@@ -138,14 +138,14 @@ var findAllSelfies = function(callback) {
       if (selfie.tagged) {
         selfies.push(selfie);
       }
-    })
+    });
     callback(err, selfies);
   });
 };
 
 var findSelfiePage = function(filter, pageNumber, nPerPage, callback) {
   var pagesToSkip = pageNumber > 0 ? ((pageNumber-1)*nPerPage) : 0;
-  filter.tagText = { $ne: null }
+  filter.tagText = { $ne: null };
   Selfie.find(filter,null,
     {
       skip: pagesToSkip,

@@ -86,7 +86,7 @@ casper.thenOpen(BASE_URL + "/gallery/1", function() {
   var imageExists = function(url) {
     var photos = document.getElementsByClassName('selfiePhoto');
     if (photos.length > 0) {
-      return (photos[0].src === url)
+      return (photos[0].src === url);
     }
     else {
       false;
@@ -98,13 +98,13 @@ casper.thenOpen(BASE_URL + "/gallery/1", function() {
   var tagExists = function(tagText) {
     var tags = document.getElementsByClassName('selfieTag');
     if (tags.length > 0) {
-      return (tags[0].innerHTML.indexOf(tagText) > -1)
+      return (tags[0].innerHTML.indexOf(tagText) > -1);
     }
     else {
       false;
     }
     test.assertTrue(this.evaluate(tagExists, taggedUserName));
-  }
+  };
 
 });
 
@@ -124,7 +124,7 @@ casper.thenOpen(BASE_URL + "/gallery/1", function() {
       $('#deleteConfirm').trigger('click');
       return selfieCount;
     });
-  })
+  });
 
 /*
   See that my photo is deleted

@@ -50,7 +50,7 @@ var adminLogin = function(req, res) {
   else {
     res.render('adminLogin', { title: "Admin Login"});
   }
-}
+};
 
 module.exports = {
   authenticate: authenticate,

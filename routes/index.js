@@ -41,7 +41,7 @@ router.get('/leaderboard', function(req, res) {
         user.name = "You";
         you = user;
       }
-    })
+    });
     res.render('leaderboard', { title: "Leaderboard", users: users, you: you });
   });
 });

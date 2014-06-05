@@ -82,7 +82,7 @@ router.get('/userGallery/:userId/:pageNum', function(req, res) {
 		{tagged: req.params.userId}
 	];
 
-	var filter = { $or: criteria }
+	var filter = { $or: criteria };
 	selfie.findSelfiePage(filter, pageNum, selfiesPerPage, function(err, selfies) {
 		nextPage = (selfies.length < selfiesPerPage) ? "" : pageNum + 1;
 		res.render('galleryPage', { title: "Photo Gallery",
