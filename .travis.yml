@@ -14,7 +14,7 @@ notifications:
 deploy:
   provider: heroku
   api_key: d24a23ad-3c56-4491-b885-9ab54de40c55
-  app: selfiequest-dev
+  app: selfiequest
 env:
   global:
   - secure: PMgwqguoLU50daSh2ogsywNBHprAubElsgS87CMnX7WttjThPmc8OVECO1LNdQ539q5p3b1qXDYdXW00QfiPEdYNmYj8g4JqNJVgE9/MasxQWtFrSetu5Fdn+gVQA7v6cXG6PBGAQl8ZDaJI3HYMUwaM6Oo2cPY+qT2qoOQgN+E=
