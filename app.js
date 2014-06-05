@@ -74,10 +74,10 @@ app.use(function(req, res, next) {
 
 if (app.get('env') !== 'development') {
   app.use(function(req, res, next) {
-    if(!req.secure) {
-      return res.redirect(['https://', req.get('Host'), req.url].join(''));
-    }
-    next();
+    var schema = req.headers["x-forwarded-proto"];
+    if (schema === "https")
+      return next();
+    res.redirect("https://" + req.headers.host + req.url);
   });
 }
 
