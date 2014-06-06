@@ -166,7 +166,6 @@ var findSelfiesFor = function(userId, callback) {
     {owner: userId},
     {tagged: userId}
   ];
-
   Selfie.find({ $or: criteria, tagText: { $ne: null } }, null, { sort: { timestamp: -1 } },callback);
 };
 
