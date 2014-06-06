@@ -43,7 +43,9 @@ router.post('/save', function(req, res) {
 			res.render('err', {error: err});
 			return;
 		}
-		res.redirect('/');
+		else {
+			res.redirect('/');
+		}
 	});
 });
 
