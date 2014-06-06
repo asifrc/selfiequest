@@ -41,8 +41,12 @@ var uploadPhoto = function(photo, ownerId, callback) {
       callback(err);
       return;
     }
+    
+    var s3Url = "selfiequestdev.s3.amazonaws.com";
+    var cdnUrl = "d1wb2yrm48p5uh.cloudfront.net";
 
     var selfie = new Selfie({ path: body.Location, owner: ownerId});
+    selfie.path = selfie.path.replace(s3Url, cdnUrl);
     selfie.save(function(err) {
       callback(err, selfie);
     });
