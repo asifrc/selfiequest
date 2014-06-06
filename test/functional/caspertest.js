@@ -18,9 +18,14 @@ casper.test.begin("User can take a selfie, tag another user, and then view the p
   var taggedUserName;
 
 /*
+  Bypass the blocked page
+*/
+  casper.start(BASE_URL + '/unblock');
+
+/*
   Log in as Admin
 */
-  casper.start(BASE_URL + '/admin');
+  casper.thenOpen(BASE_URL + '/admin');
 
   casper.then(function() {
     this.fill('#adminLogin', {
