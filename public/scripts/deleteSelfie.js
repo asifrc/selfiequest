@@ -1,6 +1,7 @@
 var dataID = null;
 
 $('.deleteButton').on('click', function() {
+  alert("hi!");
   dataID = $(this).attr('data-value');
   $('#confirmPopup').popup('open');
 });

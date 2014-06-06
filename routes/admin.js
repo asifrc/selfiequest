@@ -14,12 +14,31 @@ router.post('/createUser', function(req, res) {
 });
 
 router.get('/deleteSelfie', function(req, res) {
-  selfie.findAllSelfies(function(err, selfies) {
+  selfie.findSelfiePage({}, 0, 1, function(err, selfies) {
     if (err) {
       res.render('error', { message: err, error: new Error(err) });
       return;
     }
-    res.render('deleteSelfie', { title: "Delete Selfies", selfies: selfies});
+    console.log(selfies);
+    res.render('pagedDeleteSelfies', { 
+      title: "Delete Selfies", 
+      selfies: selfies,
+      initialPage: "deleteSelfie/1"
+    });
+  });
+});
+
+router.get('/deleteSelfie/:pageNum', function(req, res) {
+  console.log("got here!");
+  var pageNum = parseInt(req.params.pageNum);
+  var selfiesPerPage = 1;
+  
+  selfie.findSelfiePage({}, pageNum, selfiesPerPage, function(err, selfies) {
+    nextPage = (selfies.length < selfiesPerPage) ? "" : pageNum + 1;
+    console.log(selfies, "next page: ",nextPage);
+    res.render('deleteSelfiePage', { title: "Delete Selfies",
+                                selfies: selfies,
+                                nextPage: nextPage });
   });
 });
 

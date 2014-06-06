@@ -1,0 +1,12 @@
+.ajaxPage
+  for selfie in selfies
+    .selfie(data-value="#{selfie._id}")
+      h3.selfieTag= selfie.tagText
+      button.deleteButton(data-role="button",
+        data-theme="b",
+        data-icon="delete",
+        data-inline="true",
+        data-value="#{selfie._id}") Delete
+      img.selfiePhoto(src="#{selfie.path}", width="100%")
+  if (nextPage !== "")
+    a#nextPage(href="/myPhotos/#{nextPage}", data-ajax="false") Next Page
