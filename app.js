@@ -46,14 +46,15 @@ if (config.aws.environment !== 'dev') {
   });
 }
 
-app.use("/unblock", function(req, res, next) {
-  req.session.unblocked = true;
-  return next(); 
-})
-
-app.use('/', function(req, res, next) {
-  req.session.unblocked? next() : res.render("blockedView");
-})
+if (config.aws.startGame === "true") {
+  app.use("/unblock", function(req, res, next) {
+    req.session.unblocked = true;
+    return next(); 
+  })
+  app.use('/', function(req, res, next) {
+    req.session.unblocked? next() : res.render("blockedView");
+  })
+}
 
 app.use('/auth/:token', auth.authenticate);
 
