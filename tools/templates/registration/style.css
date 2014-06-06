@@ -1,0 +1,47 @@
+body {
+  font-size: 1.2em;
+}
+
+h1 {
+  font-size: 40px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.selfieQuestLogo {
+  width: 450px;
+}
+
+.logo {
+  text-align: left;
+}
+.awayDayLogo {
+  width: 600px;
+  height: 135px;
+}
+
+.message {
+  text-align: left;
+}
+
+.fullWidth {
+  width:  100%;
+}
+
+.startPlaying {
+  margin-left: 5px;
+  margin-right: auto;
+  width: 300px;
+}
+
+p.contact {
+  margin: 0;
+  padding: 0;
+}
+
+ul.contact {
+  margin: 0.3em;
+  padding: 0;
+}

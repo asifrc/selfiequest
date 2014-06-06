@@ -1,0 +1,52 @@
+html
+  body
+    table.body
+      tbody
+        tr
+          td.message
+            p.logo
+              a(href=locals.site + "auth/" + locals.token)
+                img.selfieQuestLogo(src="http://s2.postimg.org/q2tf6o7u1/selfiequest_Away_Day.png")
+            p.greeting Hey #{locals.name}!
+            p.message
+              | This year at Away Day, we are holding a weekend-long event:
+              | Selfie Quest! Selfie Quest is a game where you meet other ThoughtWorkers and take selfies
+              | with them for points. We hope this will be a lot of fun, and a great chance to meet new
+              | ThoughtWorkers (one arm's length at a time).
+
+            h2 How do I Play?
+            ol
+              li At 
+                span.bold 2PM on Friday
+                | , get started by visiting the game's website on your mobile phone 
+                a(href=locals.site + "auth/" + locals.token) here
+                |  (you'll want to bookmark this page!)
+              li Find other Away Day attendees and take selfies with them to earn 10 points per selfie.
+              li Check out other people's selfies in the gallery!
+              li See how you're doing on the leaderboard.
+              li The people with the most points from Selfies at 9AM Sunday will be announced 
+                | and the top three will win a prize! No cheating. The judges' decisions are final.
+
+            h2 What Constitutes a Valid Selfie?
+            ul
+              li Selfies must have yourself and 
+                span.bold one 
+                | other person. You can't earn extra points for group selfies!
+              li Keep the pictures appropriate for a company event. Remember, the internet never forgets.
+              li Pictures submitted that don't meet these criteria will be removed by a judge.
+
+            .fullWidth
+              a(href=locals.site + "auth/" + locals.token)
+                img.startPlaying(src="http://s28.postimg.org/wfo3a19wt/start_Playing.png")
+
+            p.disclaimer Please note that any pictures you upload with this 
+              | app will be shared with other users of the app.
+
+            p.contact Questions? Problems with the site? Contact the team:
+              ul.contact
+                 li Asif Choudhury: archoud@thoughtworks.com
+                 li Cameron Rowshanbin: crowshan@thoughtworks.com
+                 li Julia Lee: julee@thoughtworks.com
+
+            p.contact If there's a picture you think is inappropriate, you can contact 
+              | Michael Plahm at 630-415-7760
