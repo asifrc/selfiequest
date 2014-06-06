@@ -97,7 +97,7 @@ var removePointsFrom = function(err, user) {
     console.log("ERROR: Unable to fetch user in removePointsFrom");
     return;
   }
-  user.points = user.points - 1;
+  user.points = user.points - 10;
   user.save();
 };
 
@@ -115,10 +115,10 @@ var tagUser = function(selfieId, owner,  taggedUserId, callback) {
       }
       if (selfieCount === 0) {
         User.findById(owner._id, function(err, user) {
-          user.points += 1;
+          user.points += 10;
           user.save();
         });
-        taggedUser.points += 1;
+        taggedUser.points += 10;
         taggedUser.save();
         callback(err);
       }
