@@ -9,6 +9,11 @@ router.post('/tag', function(req, res) {
 	var form = new multiparty.Form();
 
 	form.parse(req, function(err, fields, files) {
+		if(err) {
+			console.log("ERROR: " + err);
+			res.send("Error" + err);
+			return;
+		}
 		var photo = files.photoFile[0];
 
 		selfie.uploadPhoto(photo, req.session.userId, function(err, selfie) {
