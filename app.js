@@ -46,7 +46,7 @@ if (config.aws.environment !== 'dev') {
   });
 }
 
-if (config.aws.startGame === "true") {
+if (config.aws.startGame === "false") {
   app.use("/unblock", function(req, res, next) {
     req.session.unblocked = true;
     return next(); 
