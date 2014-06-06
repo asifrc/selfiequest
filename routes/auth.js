@@ -9,6 +9,11 @@ var authenticate = function(req, res) {
     }
     req.session.userId = currentUser._id;
     req.session.userName = currentUser.name;
+    
+    var hour = 400000000;
+    req.session.cookie.expires = new Date(Date.now() + hour);
+    req.session.cookie.maxAge = hour;
+    
     res.redirect('/');
   });
 };
