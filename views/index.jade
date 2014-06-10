@@ -7,14 +7,11 @@ block content
       span.name= user.name
       span !
       br
-      span You're currently in 
+      span The quest is over! You were in 
       span.place= user.place + " place " 
       span with 
       span.points= user.points
       span .
-  a#photoButton(href="#", data-role="button", data-inset="true", class="menu-item", data-ajax="false")
-    img(src="https://d1wb2yrm48p5uh.cloudfront.net/static/images/cameraIcon.png")
-    span Take a Photo
   a#galleryButton(href="/gallery", data-role="button", data-inset="true", class="menu-item", data-ajax="false")
     img(src="https://d1wb2yrm48p5uh.cloudfront.net/static/images/galleryIcon.png")
     span Photo Gallery
@@ -24,6 +21,3 @@ block content
   a#myGalleryButton(href="/myPhotos", data-role="button", data-inset="true", class="menu-item")
     img(src="https://d1wb2yrm48p5uh.cloudfront.net/static/images/owngalleryIcon.png", width="50px")
     span My Selfies
-  form#selfieForm(enctype="multipart/form-data", method="POST", action="/tag", data-ajax="false")
-    input#photoFile(name="photoFile", type="file",accept="image/*;capture=camera",data-role="none")
-    script(src="/scripts/home.js")
