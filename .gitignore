@@ -4,3 +4,5 @@ node_modules
 .env
 .idea/*
 tools/*.csv
+pics
+newrelic_agent.log

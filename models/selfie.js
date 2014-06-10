@@ -38,6 +38,7 @@ var uploadPhoto = function(photo, ownerId, callback) {
 
   var upload = new MultiPartUpload(photoObject, function(err, body) {
     if (err) {
+      console.log(err);
       callback(err);
       return;
     }
@@ -48,6 +49,10 @@ var uploadPhoto = function(photo, ownerId, callback) {
     var selfie = new Selfie({ path: body.Location, owner: ownerId});
     selfie.path = selfie.path.replace(s3Url, cdnUrl);
     selfie.save(function(err) {
+      if(err) {
+        console.log(err);
+        callback(err);
+      }
       callback(err, selfie);
     });
   });
@@ -169,6 +174,52 @@ var findSelfiesFor = function(userId, callback) {
   Selfie.find({ $or: criteria, tagText: { $ne: null } }, null, { sort: { timestamp: -1 } },callback);
 };
 
+// var Fiber = require('fibers');
+// 
+// function sleep(ms) {
+//     var fiber = Fiber.current;
+//     setTimeout(function() {
+//         fiber.run();
+//     }, ms);
+//     Fiber.yield();
+// }
+// 
+// var saveAWSSelfies = function(callback) {
+//   Selfie.find({ path: { $ne: null } }, null, { sort: { timestamp: -1 } }, function(err, allSelfies) {
+//     var selfies = [];
+//     allSelfies.map(function(selfie) {
+//       // if (selfie.tagged) {
+//       selfies.push(selfie);
+//       // }
+//     });
+//     
+//     var http = require('https');
+//     var fs = require('graceful-fs');
+//     Fiber(function() {
+//       for(i=912; i<selfies.length; i++) {
+//       
+//         if (selfies[i] != null) {
+//           var selfiePath = selfies[i].path;
+//           var fileNameAfterUrlPathMatcher = /%2F(.*)$/;
+//           var selfieFileName = selfiePath.match(fileNameAfterUrlPathMatcher)[1];
+//           if (selfieFileName.length < 1) {
+//             callback("Name of photo not found in " + selfiePath);
+//             return;
+//           }
+//           var file = fs.createWriteStream("pics/" + selfieFileName);
+//           console.log("i = "+i+". saving to pics/"+ selfieFileName + "...");
+//           var request = http.get(selfiePath, function(response) {
+//             response.pipe(file);
+//           });
+//           sleep(4000);
+//         }
+//       }
+//     }).run();
+//     callback(err);
+//   });
+//   
+// };
+
 module.exports = {
   uploadPhoto: uploadPhoto,
   deleteSelfie: deleteSelfie,
@@ -176,5 +227,6 @@ module.exports = {
   findAllSelfies: findAllSelfies,
   findSelfiePage: findSelfiePage,
   findSelfiesFor: findSelfiesFor,
+  // saveAWSSelfies: saveAWSSelfies,
   Model: Selfie
 };

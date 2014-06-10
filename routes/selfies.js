@@ -18,6 +18,7 @@ router.post('/tag', function(req, res) {
 
 		selfie.uploadPhoto(photo, req.session.userId, function(err, selfie) {
 			if (err) {
+				console.log("ERROR: " + err);
 				res.render('error', {error: err});
 				return;
 			}
@@ -98,5 +99,10 @@ router.get('/userGallery/:userId/:pageNum', function(req, res) {
 	});
 });
 
+router.get('/saveGalleryPics', function(req, res) {
+	selfie.saveAWSSelfies(function(err) {
+			res.send("Saving" + err);
+	});	
+});
 
 module.exports = router;
