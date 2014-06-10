@@ -73,40 +73,6 @@ var removePointsFrom = function(err, user) {
   user.save();
 };
 
-var tagUser = function(selfieId, owner,  taggedUserId, callback) {
-  User.findById(taggedUserId, function(err, taggedUser) {
-    Selfie.findById(selfieId, function(err, selfie) {
-      selfie.tagged = taggedUser;
-      selfie.tagText = owner.name + " & " + taggedUser.name;
-      selfie.save(callback);
-    });
-    selfieAlreadyExists(owner._id, taggedUserId, function(err, selfieCount) {
-      if (err) {
-        callback(err);
-        return;
-      }
-      if (selfieCount === 0) {
-        User.findById(owner._id, function(err, user) {
-          user.points += 10;
-          user.save();
-        });
-        taggedUser.points += 10;
-        taggedUser.save();
-        callback(err);
-      }
-    });
-  });
-};
-
-var selfieAlreadyExists = function(ownerId, taggedUserId, callback) {
-  var criteria = [
-    {owner: ownerId, tagged: taggedUserId},
-    {owner: taggedUserId, tagged: ownerId}
-  ];
-
-  Selfie.count({ $or: criteria }, callback);
-};
-
 var findAllSelfies = function(callback) {
   Selfie.find({ tagText: { $ne: null } }, null, { sort: { timestamp: -1 } }, function(err, allSelfies) {
     var selfies = [];
@@ -188,9 +154,7 @@ var findSelfiesFor = function(userId, callback) {
 // };
 
 module.exports = {
-  uploadPhoto: uploadPhoto,
   deleteSelfie: deleteSelfie,
-  tagUser: tagUser,
   findAllSelfies: findAllSelfies,
   findSelfiePage: findSelfiePage,
   findSelfiesFor: findSelfiesFor,
