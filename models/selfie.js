@@ -25,39 +25,6 @@ var Selfie = mongoose.model('Selfie', {
   timestamp: { type: Date, default: Date.now }
 });
 
-// Upload selfie
-var uploadPhoto = function(photo, ownerId, callback) {
-  var client = knox.createClient(config.knox.settings);
-  var prefix = config.aws.targetFolder + "/" + Math.round(Math.random()*10000000000000000);
-
-  var photoObject = {
-    client: client,
-    objectName: prefix + photo.originalFilename, // Amazon S3 object name
-    file: photo.path
-  };
-
-  var upload = new MultiPartUpload(photoObject, function(err, body) {
-    if (err) {
-      console.log(err);
-      callback(err);
-      return;
-    }
-    
-    var s3Url = "selfiequestdev.s3.amazonaws.com";
-    var cdnUrl = "d1wb2yrm48p5uh.cloudfront.net";
-
-    var selfie = new Selfie({ path: body.Location, owner: ownerId});
-    selfie.path = selfie.path.replace(s3Url, cdnUrl);
-    selfie.save(function(err) {
-      if(err) {
-        console.log(err);
-        callback(err);
-      }
-      callback(err, selfie);
-    });
-  });
-};
-
 var deleteSelfie = function(selfieId, callback) {
   // delete from mongo
   Selfie.findByIdAndRemove(selfieId, function(err, selfie) {

@@ -5,49 +5,10 @@ var multiparty = require('multiparty');
 
 var selfie = require('../models/selfie');
 
-router.post('/tag', function(req, res) {
-	var form = new multiparty.Form();
-
-	form.parse(req, function(err, fields, files) {
-		if(err) {
-			console.log("ERROR: " + err);
-			res.send("Error" + err);
-			return;
-		}
-		var photo = files.photoFile[0];
-
-		selfie.uploadPhoto(photo, req.session.userId, function(err, selfie) {
-			if (err) {
-				console.log("ERROR: " + err);
-				res.render('error', {error: err});
-				return;
-			}
-			req.session.selfieId = selfie._id;
-			res.render('tag', {imgPath: selfie.path});
-		});
-	});
-});
-
 router.post('/deleteSelfie', function(req, res) {
   selfie.deleteSelfie(req.body.id, function(err, result) {
     res.send(JSON.stringify({error: err}));
   });
-});
-
-router.post('/save', function(req, res) {
-	var owner =  {
-		name: req.session.userName,
-		_id: req.session.userId
-	};
-	selfie.tagUser(req.session.selfieId, owner, req.body.tagged, function(err) {
-		if (err) {
-			res.render('err', {error: err});
-			return;
-		}
-		else {
-			res.redirect('/');
-		}
-	});
 });
 
 router.get('/gallery', function(req, res) {
@@ -97,12 +58,6 @@ router.get('/userGallery/:userId/:pageNum', function(req, res) {
 																selfies: selfies,
 																nextPage: nextPage });
 	});
-});
-
-router.get('/saveGalleryPics', function(req, res) {
-	selfie.saveAWSSelfies(function(err) {
-			res.send("Saving" + err);
-	});	
 });
 
 module.exports = router;
