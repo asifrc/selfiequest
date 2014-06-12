@@ -17,6 +17,8 @@ var Selfie = mongoose.model('Selfie', {
     ref: 'User'
   },
   path: String,
+  thumbPath: String,
+  resizedPath: String,
   tagged: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
@@ -96,7 +98,18 @@ var findSelfiePage = function(filter, pageNumber, nPerPage, callback) {
         timestamp: -1
       }
     },
-    callback);
+    function(err, selfies) {
+      callback(err, selfies);
+    });
+  
+  // selfies = [];
+  // selfies.push({tagText: "A & B",
+  //               path: "./pics/oriented/resized/8103304053656757IMAG0527.jpg"});
+  // selfies.push({tagText: "A & B",
+  //               path: "./pics/oriented/resized/8103304053656757IMAG0527.jpg"});
+  // selfies.push({tagText: "A & B",
+  //               path: "./pics/oriented/resized/8103304053656757IMAG0527.jpg"});
+  // callback(null, selfies);
 };
 
 var findSelfiesFor = function(userId, callback) {

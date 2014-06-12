@@ -5,4 +5,5 @@ node_modules
 .idea/*
 tools/*.csv
 pics
+pics copy
 newrelic_agent.log

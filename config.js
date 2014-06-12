@@ -7,7 +7,7 @@ module.exports = {
       }
   },
   aws: {
-    targetFolder: process.env.AWS_FOLDER || "default",
+    targetFolder: process.env.AWS_FOLDER || "dev",
     environment: process.env.ENVIRONMENT || "dev",
     startGame: process.env.START_GAME || "false"
   },

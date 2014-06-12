@@ -12,7 +12,7 @@ router.post('/deleteSelfie', function(req, res) {
 });
 
 router.get('/gallery', function(req, res) {
-	selfie.findSelfiePage({}, 0, 1, function(err, selfies) {
+	selfie.findSelfiePage({}, 0, 4, function(err, selfies) {
 		res.render('pagedGallery', {
 			title: "Photo Gallery",
 			selfies: selfies,
@@ -23,12 +23,17 @@ router.get('/gallery', function(req, res) {
 
 router.get('/gallery/:pageNum', function(req, res) {
 	var pageNum = parseInt(req.params.pageNum);
-	var selfiesPerPage = 1;
+	var selfiesPerPage = 4;
 	selfie.findSelfiePage({}, pageNum, selfiesPerPage, function(err, selfies) {
-		nextPage = (selfies.length < selfiesPerPage) ? "" : pageNum + 1;
-		res.render('galleryPage', { title: "Photo Gallery",
-																selfies: selfies,
-																nextPage: nextPage });
+    if (err) {
+      console.log("error: ", err);
+    }
+    else {
+  		nextPage = (selfies.length < selfiesPerPage) ? "" : pageNum + 1;
+  		res.render('galleryPage', { title: "Photo Gallery",
+  																selfies: selfies,
+  																nextPage: nextPage });
+    }
 	});
 });
 
