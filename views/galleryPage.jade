@@ -2,7 +2,7 @@
   for selfie in selfies
     .selfie(style="display: inline-block; width: 20%;")
       h3.selfieTag= selfie.tagText
-      a(href="#{selfie.resizedPath}")
+      a.gallery(href="#{selfie.resizedPath}")
         img.selfiePhoto(src="#{selfie.thumbPath}", width="100%", style="display: inline-block;")
   if (nextPage !== "")
     a#nextPage(href="/gallery/#{nextPage}", data-ajax="false") Next Page

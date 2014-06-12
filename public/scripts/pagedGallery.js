@@ -4,7 +4,7 @@ $('body').on('pagecontainershow', function() {
       navElement: '#nextPage',
       itemsToLoad: '.selfie'
   }, function(){
-      // optional callback function
+      // apply styling to new pictures
       $('#galleryList').listview('refresh');
       $('#galleryList').trigger('create');
       var dataID = null;
@@ -24,5 +24,8 @@ $('body').on('pagecontainershow', function() {
           $('#confirmPopup').popup('close');
         });
       });
+      
+      // apply colorbox to new pictures
+      $('a.gallery').colorbox({rel:'gallery'});
   });
 });
