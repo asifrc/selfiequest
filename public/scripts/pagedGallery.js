@@ -9,13 +9,12 @@ $('body').on('pagecontainershow', function() {
       $('#galleryList').trigger('create');
       var dataID = null;
 
-      
+      // apply delete button functionality to new pictures
       $('.deleteButton').off('click');
       $('.deleteButton').on('click', function() {
         dataID = $(this).attr('data-value');
         $('#confirmPopup').popup('open');
       });
-      
       
       $('#deleteConfirm').off('click');
       $('#deleteConfirm').on('click', function() {
@@ -26,6 +25,6 @@ $('body').on('pagecontainershow', function() {
       });
       
       // apply colorbox to new pictures
-      $('a.gallery').colorbox({rel:'gallery'});
+      $('a.gallery').colorbox({rel:'gallery', height: $(window).height()});
   });
 });
