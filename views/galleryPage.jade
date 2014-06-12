@@ -1,6 +1,6 @@
 .ajaxPage
   for selfie in selfies
-    .selfie(style="display: inline-block; width: 20%;")
+    .selfie
       h3.selfieTag= selfie.tagText
       a.gallery(href="#{selfie.resizedPath}")
         img.selfiePhoto(src="#{selfie.thumbPath}", width="100%", style="display: inline-block;")

@@ -90,5 +90,22 @@
 		border-image-width: 0px;
 	}
 	.selfie {
-		padding-left: 15px;
+		display: inline-block;
+		position: relative;
+		height: 19em;
+		border: solid;
+		border-width: 2px;
+		border-color: lightgrey;
+		margin-left: 15px;
+		margin-bottom: 15px;
+		width: 15em;
+	}
+	.selfieTag {
+		margin-top: 4px;
+		margin-bottom: 6px;
+		text-align: center;
+	}
+	.selfie img {
+		position:absolute;
+		bottom: 0;
 	}
