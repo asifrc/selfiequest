@@ -5,6 +5,11 @@ var config = require('../config');
 
 var User = require('./user').Model;
 
+var knoxSettings = {
+  key: config.aws.key,
+  secret: config.aws.secret,
+  bucket: config.aws.bucket
+}
 
 mongoose.connect(process.env.MONGO_DB);
 
@@ -27,7 +32,7 @@ var Selfie = mongoose.model('Selfie', {
 
 // Upload selfie
 var uploadPhoto = function(photo, ownerId, callback) {
-  var client = knox.createClient(config.knox.settings);
+  var client = knox.createClient(knoxSettings);
   var prefix = config.aws.targetFolder + "/" + Math.round(Math.random()*10000000000000000);
 
   var photoObject = {
@@ -61,7 +66,7 @@ var deleteSelfie = function(selfieId, callback) {
       return;
     }
     // delete from aws
-    var client = knox.createClient(config.knox.settings);
+    var client = knox.createClient(knoxSettings);
     var selfiePath = selfie.path;
     var awsFolder = config.aws.targetFolder;
     console.log(selfiePath, awsFolder); //DEV

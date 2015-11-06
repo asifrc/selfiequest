@@ -10,14 +10,10 @@ var optionalVar = function(varName, defaultValue) {
 };
 
 module.exports = {
-  knox: {
-      settings: {
-        key: requiredVar('AWS_ACCESS_KEY_ID'),
-        secret: requiredVar('AWS_SECRET_ACCESS_KEY'),
-        bucket: requiredVar('AWS_S3_BUCKET')
-      }
-  },
   aws: {
+    key: requiredVar('AWS_ACCESS_KEY_ID'),
+    secret: requiredVar('AWS_SECRET_ACCESS_KEY'),
+    bucket: requiredVar('AWS_S3_BUCKET'),
     targetFolder: optionalVar('AWS_FOLDER', "default"),
     environment: optionalVar('ENVIRONMENT',"dev"),
     startGame: optionalVar('START_GAME', "false")
