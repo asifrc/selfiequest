@@ -33,6 +33,11 @@ app.use(expressSession({
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
 
+app.use(function(req, res, next) {
+  res.locals.assetBase = config.assets.base;
+  next();
+});
+
 console.log("config.aws.environment: " + config.aws.environment);
 
 if (config.aws.environment !== 'dev') {

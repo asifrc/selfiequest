@@ -9,7 +9,7 @@ var optionalVar = function(varName, defaultValue) {
   return process.env[varName] || defaultValue;
 };
 
-module.exports = {
+var config = {
   aws: {
     key: requiredVar('AWS_ACCESS_KEY_ID'),
     secret: requiredVar('AWS_SECRET_ACCESS_KEY'),
@@ -21,5 +21,11 @@ module.exports = {
   security: {
     salt: optionalVar('SALT', "a3jcLj3kaB"),
     adminPassword: optionalVar('ADMIN_PASSWORD', "iceland")
+  },
+  assets: {
+    base: optionalVar('ASSET_BASE', "/").replace(/\/$/, '')
   }
 };
+
+
+module.exports = config;

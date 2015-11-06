@@ -3,20 +3,19 @@ html
   head
     title= title
     meta(name="viewport",content="width=device-width, initial-scale=1")
-    link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800', rel='stylesheet', type='text/css')
-    link(rel="stylesheet", href="https://d1wb2yrm48p5uh.cloudfront.net/static/themes/white01.min.css")
-    link(rel="stylesheet", href="https://d1wb2yrm48p5uh.cloudfront.net/static/themes/jquery.mobile.icons.min.css")
-    link(rel="stylesheet", href="https://code.jquery.com/mobile/1.4.2/jquery.mobile.structure-1.4.2.min.css")
-    link(rel='stylesheet', href='https://d1wb2yrm48p5uh.cloudfront.net/static/stylesheets/style.css')
-    script(src="https://code.jquery.com/jquery-1.10.2.min.js")
-    script(src="https://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js")
+    link(rel="stylesheet", href=assetBase + "/themes/white01.min.css")
+    link(rel="stylesheet", href=assetBase + "/themes/jquery.mobile.icons.min.css")
+    link(rel="stylesheet", href=assetBase + "/stylesheets/jquery.mobile.structure-1.4.2.min.css")
+    link(rel='stylesheet', href=assetBase + "/stylesheets/style.css")
+    script(src="/scripts/jquery-1.10.2.min.js")
+    script(src="/scripts/jquery.mobile-1.4.2.min.js")
     script(src="/scripts/infiniteScroller.js")
   body
     div(data-role="page", id="main")
       .ui-content(role="main")
         #banner
           a(href="/")
-            img(width="30%", src="https://d1wb2yrm48p5uh.cloudfront.net/static/images/awayDayLogo.png")
+            img(width="30%", src=assetBase + "/images/awayDayLogo.png")
           | &nbsp;
           span#spSelfie Selfie
           | &nbsp;

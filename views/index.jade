@@ -13,16 +13,16 @@ block content
       span.points= user.points
       span .
   a#photoButton(href="#", data-role="button", data-inset="true", class="menu-item", data-ajax="false")
-    img(src="https://d1wb2yrm48p5uh.cloudfront.net/static/images/cameraIcon.png")
+    img(src=assetBase + "/images/cameraIcon.png")
     span Take a Photo
   a#galleryButton(href="/gallery", data-role="button", data-inset="true", class="menu-item", data-ajax="false")
-    img(src="https://d1wb2yrm48p5uh.cloudfront.net/static/images/galleryIcon.png")
+    img(src=assetBase + "/images/galleryIcon.png")
     span Photo Gallery
   a#leaderboardButton(href="/leaderboard", data-role="button", data-inset="true", class="menu-item")
-    img(src="https://d1wb2yrm48p5uh.cloudfront.net/static/images/leaderboardIcon.png", width="50px")
+    img(src=assetBase + "/images/leaderboardIcon.png", width="50px")
     span Leaderboard
   a#myGalleryButton(href="/myPhotos", data-role="button", data-inset="true", class="menu-item")
-    img(src="https://d1wb2yrm48p5uh.cloudfront.net/static/images/owngalleryIcon.png", width="50px")
+    img(src=assetBase + "/images/owngalleryIcon.png", width="50px")
     span My Selfies
   form#selfieForm(enctype="multipart/form-data", method="POST", action="/tag", data-ajax="false")
     input#photoFile(name="photoFile", type="file",accept="image/*;capture=camera",data-role="none")
