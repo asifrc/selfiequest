@@ -4,7 +4,9 @@ node_modules
 .env
 .idea/*
 tools/*.csv
+.env*
 .env-local
 .vagrant
 tools/ignore
 public/awayday
+npm-debug.log
