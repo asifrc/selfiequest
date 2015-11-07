@@ -1,7 +1,10 @@
 var mongoose = require('mongoose');
-var knox = require('knox');
-var MultiPartUpload = require('knox-mpu');
 var config = require('../config');
+
+var useAWS = config.useAWS === true;
+
+var knox = useAWS ? require('knox') : require('./mockKnox');
+var MultiPartUpload = useAWS ? require('knox-mpu') : require('./mockKnoxMPU');
 
 var User = require('./user').Model;
 
@@ -11,7 +14,7 @@ var knoxSettings = {
   bucket: config.aws.bucket
 }
 
-mongoose.connect(process.env.MONGO_DB);
+mongoose.connect(config.mongodb.url);
 
 /***************\
  * Selfie Model *
@@ -46,7 +49,7 @@ var uploadPhoto = function(photo, ownerId, callback) {
       callback(err);
       return;
     }
-    
+
     var s3Url = "selfiequestdev.s3.amazonaws.com";
     var cdnUrl = "d1wb2yrm48p5uh.cloudfront.net";
 

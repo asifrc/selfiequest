@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(expressSession({
   secret: "tellmeasecret123",
-  store: new MongoStore({ url: process.env.MONGO_DB })
+  store: new MongoStore({ url: config.mongodb.url })
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
@@ -51,7 +51,7 @@ if (config.aws.environment !== 'dev') {
   });
 }
 
-if (config.aws.startGame === "false") {
+if (!config.aws.startGame) {
   app.use("/unblock", function(req, res, next) {
     req.session.unblocked = true;
     return next(); 

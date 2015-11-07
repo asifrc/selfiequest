@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var crypto = require('crypto');
 var config = require('../config');
 
-mongoose.connect(process.env.MONGO_DB);
+mongoose.connect(config.mongodb.url);
 
 var User = mongoose.model('User', {
   name: String,
