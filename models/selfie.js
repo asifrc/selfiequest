@@ -1,10 +1,8 @@
 var mongoose = require('mongoose');
 var config = require('../config');
 
-var useAWS = config.useAWS === true;
-
-var knox = useAWS ? require('knox') : require('./mockKnox');
-var MultiPartUpload = useAWS ? require('knox-mpu') : require('./mockKnoxMPU');
+var knox = config.useAWS ? require('knox') : require('./mockKnox');
+var MultiPartUpload = config.useAWS ? require('knox-mpu') : require('./mockKnoxMPU');
 
 var User = require('./user').Model;
 
@@ -114,22 +112,30 @@ var tagUser = function(selfieId, owner,  taggedUserId, callback) {
     Selfie.findById(selfieId, function(err, selfie) {
       selfie.tagged = taggedUser;
       selfie.tagText = owner.name + " & " + taggedUser.name;
-      selfie.save(callback);
-    });
-    selfieAlreadyExists(owner._id, taggedUserId, function(err, selfieCount) {
-      if (err) {
-        callback(err);
-        return;
-      }
-      if (selfieCount === 0) {
-        User.findById(owner._id, function(err, user) {
-          user.points += 10;
-          user.save();
-        });
-        taggedUser.points += 10;
-        taggedUser.save();
-        callback(err);
-      }
+      selfie.save(function(err) {
+        if (err) {
+          return callback(err);
+        }
+        else {
+          selfieAlreadyExists(owner._id, taggedUserId, function(err, selfieCount) {
+            if (err) {
+              return callback(err);
+            }
+            if (selfieCount <= 1) {
+              User.findById(owner._id, function(err, user) {
+                user.points += 10;
+                user.save();
+              });
+              taggedUser.points += 10;
+              taggedUser.save();
+              callback(err);
+            }
+            else {
+              callback();
+            }
+          });
+        }
+      });
     });
   });
 };
